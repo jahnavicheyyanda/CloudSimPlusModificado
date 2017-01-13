@@ -26,7 +26,7 @@ import org.cloudbus.cloudsim.util.TextTableBuilder;
 
 /**
  * Classe Simulador de Nuvem
- * @author anselmo
+ * @author Anselmo
  */
 public class SimuladorDeNuvem {
 
