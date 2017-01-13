@@ -1029,8 +1029,8 @@ public class CloudSim {
 
         double lastSimulationTime = clock();
 
-        finishSimulation();
-        runStop();
+       // finishSimulation();
+       // runStop();
 
         return lastSimulationTime;
     }
