@@ -123,11 +123,12 @@ public class SimuladorDeNuvem {
         //ActiveNetWorkTopology(datacenter, broker);
 
         CloudSim.startSimulation();//Iniciando simulação
-       
-        List<Cloudlet> newList = broker.getCloudletsFinishedList();
-        CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
-        Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
-        
+        CloudSim.pauseSimulation();
+//        List<Cloudlet> newList = broker.getCloudletsFinishedList();
+//        CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
+//        Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
+        CloudSim.finishSimulation();
+        CloudSim.runStop();
         
     }
     
