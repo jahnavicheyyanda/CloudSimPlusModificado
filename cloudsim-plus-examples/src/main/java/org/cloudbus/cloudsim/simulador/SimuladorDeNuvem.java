@@ -30,7 +30,7 @@ import org.cloudbus.cloudsim.util.TextTableBuilder;
  */
 public class SimuladorDeNuvem {
 
-    private static List<Cloudlet> cloudletList; //Lista de Cloudlet
+    private static List<Cloudlet> cloudletList; //Lista de Cloudlett
     private static List<Vm> vmList; //Lista de maquinas virtuais
 
 
