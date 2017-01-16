@@ -33,33 +33,7 @@ public class SimuladorDeNuvem {
     private static List<Cloudlet> cloudletList; //Lista de Cloudlett
     private static List<Vm> vmList; //Lista de maquinas virtuais
 
-
- 
-     
-     private static void ActiveNetWorkTopology(Datacenter datacenter, DatacenterBroker broker){
-        //==========================================================
-        //                  Configuração da REDE
-        //==========================================================
-        //NetworkTopology contém a informação para o comportamento da rede na simulaçã
-        //Carrega o arquivo de topologia de rede
-        
-                    NetworkTopology.buildNetworkTopology("topology.brite");
-
-                    // Mapeia entidades CloudSim para Brite entidades
-                    
-                    // O Datacenter corresponderá ao BRITE nó 0
-                    int briteNode=0;
-                    NetworkTopology.mapNode(datacenter.getId(),briteNode);
-
-                    // O Broker corresponderá ao BRITE nó 3
-                    briteNode=3;
-                    NetworkTopology.mapNode(broker.getId(),briteNode);
-                    
-        //==========================================================
-     }
-    
-    
-    public static void main(String[] args) {
+public static void main(String[] args) {
         
         Log.printFormattedLine("Iniciando %s!", SimuladorDeNuvem.class.getSimpleName());
         int Nuser = 1; // N° usuarios da nuvem
@@ -120,7 +94,9 @@ public class SimuladorDeNuvem {
         broker.submitVmList(vmList);
        
         broker.submitCloudletList(cloudletList);
-        //ActiveNetWorkTopology(datacenter, broker);
+        
+//        NW nw=new NW();
+//        nw.ActiveNetWorkTopology(datacenter, broker);
 
         CloudSim.startSimulation();//Iniciando simulação
         CloudSim.pauseSimulation();
