@@ -100,11 +100,14 @@ public static void main(String[] args) {
 
         CloudSim.startSimulation();//Iniciando simulação
         CloudSim.pauseSimulation();
-//        List<Cloudlet> newList = broker.getCloudletsFinishedList();
+
+      //  CloudSim.finishSimulation();
+      //  CloudSim.runStop();
+        
+//         List<Cloudlet> newList = broker.getCloudletsFinishedList();
 //        CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
-//        Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
-        CloudSim.finishSimulation();
-        CloudSim.runStop();
+
+  //      Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
         
     }
     

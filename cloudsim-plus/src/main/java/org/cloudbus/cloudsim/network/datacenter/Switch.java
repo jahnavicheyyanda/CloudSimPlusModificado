@@ -118,7 +118,7 @@ public abstract class Switch extends SimEntity {
 
     @Override
     public void startEntity() {
-        Log.printConcatLine(getName(), " is starting...");
+        Log.printConcatLine(getName(), " está iniciando...");
         schedule(getId(), 0, CloudSimTags.DATACENTER_CHARACTERISTICS_REQUEST);
     }
 
