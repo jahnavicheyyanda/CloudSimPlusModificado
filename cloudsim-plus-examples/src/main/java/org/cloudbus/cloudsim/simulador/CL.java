@@ -33,7 +33,7 @@ public class CL {
         indice =0 ;
     }
     
-    public void add(long length,int pesNumber){
+    public void add(long length,int pesNumber,int fileSize,int outputSize){
     Cloudlet cloudlet = new CloudletSimple(indice, length, pesNumber, fileSize, outputSize, utilizationModel, utilizationModel, utilizationModel);
     cloudlet.setUserId(userId);
     list.add(cloudlet);

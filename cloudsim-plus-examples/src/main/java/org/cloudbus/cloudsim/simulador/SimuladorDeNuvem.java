@@ -71,9 +71,9 @@ public class SimuladorDeNuvem {
         VM v = new VM(brokerId);
         v.add(512,250,1);
         v.add(1000,250,1);
-        v.add(512,250,1);
-        v.add(1000,100,1);
-        v.add(512,20,1);
+       // v.add(512,250,1);
+       // v.add(1000,100,1);
+       // v.add(512,20,1);
         vmList = v.getList();
         
         //----------------------------------------------------------------------------
@@ -86,10 +86,10 @@ public class SimuladorDeNuvem {
          */
         
             CL cl = new CL(brokerId);
-            cl.add(4000, 1);
-            cl.add(30000, 1);
-            cl.add(40000, 1);
-            cl.add(20000, 2);
+            cl.add(4000, 1,300,10);
+            cl.add(30000, 1,400,40);
+            cl.add(40000, 1,500,100);
+            cl.add(10, 1,10000,1);
             cloudletList = cl.getList();
         
         //----------------------------------------------------------------------------
