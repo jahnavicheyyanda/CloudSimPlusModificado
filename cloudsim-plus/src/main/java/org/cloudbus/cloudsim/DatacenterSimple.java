@@ -1097,12 +1097,12 @@ public class DatacenterSimple extends SimEntity implements Datacenter {
 
     @Override
     public void shutdownEntity() {
-        Log.printConcatLine(getName(), " is shutting down...");
+        Log.printConcatLine(getName(), " está sendo encerrado...");
     }
 
     @Override
     public void startEntity() {
-        Log.printConcatLine(getName(), " is starting...");
+        Log.printConcatLine(getName(), " está iniciando...");
         // this resource should register to regional CIS.
         // However, if not specified, then register to system CIS (the
         // default CloudInformationService) entity.

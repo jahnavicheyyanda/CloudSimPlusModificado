@@ -39,7 +39,7 @@ public class CloudSim {
     /**
      * The CloudSim current version.
      */
-    private static final String CLOUDSIM_VERSION_STRING = "4.0";
+    private static final String CLOUDSIM_VERSION_STRING = "4.0 modificada";
 
     /**
      * The id of CIS entity.
@@ -257,7 +257,7 @@ public class CloudSim {
      * @post $none
      */
     public static double startSimulation() throws RuntimeException {
-        Log.printConcatLine("Starting CloudSim version ", CLOUDSIM_VERSION_STRING);
+        Log.printConcatLine("Inicializando CloudSim versão ", CLOUDSIM_VERSION_STRING);
         try {
             double lastSimulationTime = run();
 
@@ -440,7 +440,7 @@ public class CloudSim {
      * should be called at the start of the simulation.
      */
     protected static void initialize() {
-        Log.printLine("Initialising...");
+        Log.printLine("Inicializando...");
         entities = new ArrayList<>();
         entitiesByName = new LinkedHashMap<>();
         future = new FutureQueue();
@@ -648,7 +648,7 @@ public class CloudSim {
             future.removeAll(toRemove);
         } else {
             running = false;
-            printMessage("Simulation: No more future events");
+            printMessage("Simulação: Não há mais eventos futuros");
         }
 
         return queueWasEmpty;
@@ -932,7 +932,7 @@ public class CloudSim {
             ent.startEntity();
         }
 
-        printMessage("Entities started.");
+        printMessage("Entidades iniciadas.");
     }
 
     /**
@@ -1011,16 +1011,17 @@ public class CloudSim {
                 break;
             }
 
-            if (pauseAt != -1
-                    && ((future.size() > 0 && clock <= pauseAt && pauseAt <= future.iterator().next()
-                    .eventTime()) || future.size() == 0 && pauseAt <= clock)) {
+            if (pauseAt != -1  && ((future.size() > 0 && clock <= pauseAt && pauseAt <= future.iterator().next().eventTime()) || future.size() == 0 && pauseAt <= clock)) {
+                printMessage("Simulação pausada");
                 pauseSimulation();
                 clock = pauseAt;
             }
 
             while (paused) {
                 try {
+                    
                     Thread.sleep(100);
+                    
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -1029,8 +1030,8 @@ public class CloudSim {
 
         double lastSimulationTime = clock();
 
-        finishSimulation();
-        runStop();
+       // finishSimulation();
+       // runStop();
 
         return lastSimulationTime;
     }

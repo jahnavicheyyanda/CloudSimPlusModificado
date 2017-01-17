@@ -31,12 +31,10 @@ public class SimuladorDeNuvem {
 
     private static List<Cloudlet> cloudletList; //Lista de Cloudlett
     private static List<Vm> vmList; //Lista de maquinas virtuais
-
-
-    
+  
     
     public static void main(String[] args) {
-        
+
         Log.printFormattedLine("Iniciando %s!", SimuladorDeNuvem.class.getSimpleName());
         int Nuser = 1; // N° usuarios da nuvem
         Calendar calendar = Calendar.getInstance(); //Pegando data e hora atual
@@ -97,16 +95,20 @@ public class SimuladorDeNuvem {
        
         broker.submitCloudletList(cloudletList);
         
-        //Ativando NetWork
-        NetWork nt = new NetWork();
-        nt.ActiveNetWorkTopology(datacenter, broker);
-        
+
+//        NW nw=new NW();
+//        nw.ActiveNetWorkTopology(datacenter, broker);
+
         CloudSim.startSimulation();//Iniciando simulação
-       
-        List<Cloudlet> newList = broker.getCloudletsFinishedList();
-        CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
-        Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
+        CloudSim.pauseSimulation();
+
+      //  CloudSim.finishSimulation();
+      //  CloudSim.runStop();
         
+//         List<Cloudlet> newList = broker.getCloudletsFinishedList();
+//        CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
+
+  //      Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
         
     }
     
