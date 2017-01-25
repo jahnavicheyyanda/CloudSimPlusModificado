@@ -8,6 +8,7 @@ package org.cloudbus.cloudsim.simulador;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import org.cloudbus.cloudsim.DatacenterCharacteristics;
 import org.cloudbus.cloudsim.DatacenterCharacteristicsSimple;
 import org.cloudbus.cloudsim.DatacenterSimple;
@@ -39,7 +40,7 @@ import org.cloudbus.cloudsim.schedulers.VmSchedulerTimeShared;
       *     Um data center pode gerenciar diversas máquinas físicas, que por sua vez
       * gerencia os ciclos de vidas das máquinas virtuais.
       */
-public class DC {
+public class DC extends NumRandom{
     private List<Host> hostList;
     private List<Pe> peList;
     private int hostId;
@@ -73,8 +74,18 @@ public class DC {
         hostId++;
     
     }
+
     
-      public DatacenterSimple CreateAndGetDatacenter() {
+        public void CreateHosts(int n){
+            int mips[]={500,1000,1500,2000};
+            int ram[]={512,1000,2000,4000};
+            long storage[]={500000,1000000,1500000,2000000};
+            for(int i=0;i<n;i++)
+            CreateHost(mips[rdm(4)], ram[rdm(4)], storage[rdm(4)]);
+            
+        }
+      
+        public DatacenterSimple CreateAndGetDatacenter() {
 
         
 

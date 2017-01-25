@@ -16,7 +16,7 @@ import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelFull;
  *
  * @author anselmo
  */
-public class CL {
+public class CL extends NumRandom{
     private List<Cloudlet> list;
     private  UtilizationModel utilizationModel;
     private  long fileSize;
@@ -39,6 +39,15 @@ public class CL {
     list.add(cloudlet);
     indice++;
     }
+    
+     public void CreateCoudLets(int n){
+            long length[]={100,300,500,1000,1500,2000};
+            int pesNumber[]={1,2};
+            int fileSizeOutputSize[]={100,200,300,500,1000};
+            for(int i=0;i<n;i++)
+            add(length[rdm(6)],pesNumber[rdm(2)],fileSizeOutputSize[rdm(5)],fileSizeOutputSize[rdm(5)]);
+            
+        }
     
     public  List<Cloudlet> getList(){
         return list;

@@ -14,7 +14,7 @@ import org.cloudbus.cloudsim.schedulers.CloudletSchedulerTimeShared;
  *
  * @author anselmo
  */
-public class VM {
+public class VM extends NumRandom{
     
     private List<Vm> list;
             //Parametros das VMs
@@ -39,6 +39,14 @@ public class VM {
         indice ++;
     }
     
+     public void CreateVMs(int n){
+            int mips[]={100,200,250,400,500,700,1000};//7
+            int ram[]={512,1000,2000};
+            int pesN[]={1,2};
+            for(int i=0;i<n;i++)
+            add( ram[rdm(3)],mips[rdm(7)], pesN[rdm(2)]);
+            
+        }
     public List<Vm>  getList(){   
         return list;
     }
