@@ -228,14 +228,13 @@ public class DynamicCloudletsArrival2 {
         double costPerStorage = 0.001; // the cost of using storage in this datacenter
         double costPerBw = 0.0; // the cost of using bw in this resource
         LinkedList<FileStorage> storageList = new LinkedList<>(); // we are not adding SAN devices by now
-
         DatacenterCharacteristics characteristics = new DatacenterCharacteristicsSimple(
                 arch, os, VMM, hostList, time_zone, cost, costPerMem,
                 costPerStorage, costPerBw);
 
         return new DatacenterSimple(name, characteristics, 
                 new VmAllocationPolicySimple(hostList), storageList, 0);
-    }
+        }
 
     /**
      * Creates a host with pre-defined configuration.
