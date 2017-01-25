@@ -186,6 +186,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
         setDatacenterIdsList(CloudSim.getDatacenterIdsList());
         this.datacenterCharacteristicsMap = new HashMap<>();
         Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Cloud Datacenter List received with ", getDatacenterIdsList().size(), " datacenter(s)");
+        
         for (Integer datacenterId : getDatacenterIdsList()) {
             sendNow(datacenterId, CloudSimTags.DATACENTER_CHARACTERISTICS, getId());
         }
