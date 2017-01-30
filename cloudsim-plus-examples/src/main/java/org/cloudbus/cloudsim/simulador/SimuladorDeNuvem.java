@@ -62,7 +62,7 @@ public class SimuladorDeNuvem {
          * máquina física (Host)
          */
         VM v = new VM(brokerId);
-        v.CreateVMs(0);
+        v.CreateVMs(5);
 //        v.add(512,250,1);
         vmList = v.getList();
         
@@ -77,7 +77,7 @@ public class SimuladorDeNuvem {
          */
         
             CL cl = new CL(brokerId);
-            cl.CreateCoudLets(0);
+            cl.CreateCoudLets(10);
 //          cl.add(4000, 1,300,10);
             cloudletList = cl.getList();
         
@@ -97,6 +97,6 @@ public class SimuladorDeNuvem {
       //  CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
 
       //  Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
-        
+        ManagerOfResources mr =new ManagerOfResources(datacenter);
     }
 }
