@@ -88,7 +88,7 @@ public class CloudSimExample1 {
             int brokerId = broker.getId();
 
             // Fourth step: Create one virtual machine
-            vmlist = new ArrayList<>();
+            vmlist = new ArrayList();
 
             // VM description
             int vmid = 0;
@@ -111,7 +111,7 @@ public class CloudSimExample1 {
             broker.submitVmList(vmlist);
 
             // Fifth step: Create one Cloudlet
-            cloudletList = new ArrayList<>();
+            cloudletList = new ArrayList();
 
             // Cloudlet properties
             int id = 0;
