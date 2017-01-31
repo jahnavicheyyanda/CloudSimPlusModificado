@@ -149,7 +149,6 @@ public class CloudSimExample2 {
             List<Cloudlet> newList = broker.getCloudletsFinishedList();
 
             CloudSim.stopSimulation();
-
             CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
             Log.printFormattedLine("%s finished!", CloudSimExample2.class.getSimpleName());
         } catch (Exception e) {
