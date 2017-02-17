@@ -15,6 +15,7 @@ import org.cloudbus.cloudsim.brokers.DatacenterBroker;
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.core.CloudSim;
+import org.cloudbus.cloudsim.examples.CloudSimExample7;
 
 /**
  * Classe Simulador de Nuvem
@@ -84,11 +85,14 @@ public class SimuladorDeNuvem {
         //----------------------------------------------------------------------------
         broker.submitVmList(vmList);
         broker.submitCloudletList(cloudletList);
-        
+//        try{
+//        ThreadMonitor monitor = new ThreadMonitor();
+//            monitor.start();
+//            Thread.sleep(1000);
+//        }catch(Exception e){}
 //      NW nw=new NW();
 //      nw.ActiveNetWorkTopology(datacenter, broker);
         CloudSim.startSimulation();//Iniciando simulação
-        CloudSim.pauseSimulation();
 
      //  CloudSim.finishSimulation();
      //  CloudSim.runStop();
@@ -97,6 +101,44 @@ public class SimuladorDeNuvem {
       //  CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
 
       //  Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
-        ManagerOfResources mr =new ManagerOfResources(datacenter);
+        
     }
 }
+
+
+class ThreadMonitor extends Thread {
+    /**
+     * The DatacenterBroker created inside the thread.
+     */
+    private DatacenterBroker broker = null;
+
+    @Override
+    public void run() {
+        CloudSim.pauseSimulation(10);
+
+        while (true) {
+            if (CloudSim.isPaused()) {
+                break;
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.printLine("\n\n\n" + CloudSim.clock() + ": The simulation is paused for 5 sec \n\n");
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        CloudSim.resumeSimulation();
+    }
+
+    public DatacenterBroker getBroker() {
+        return broker;
+    }
+};
