@@ -31,21 +31,21 @@ public class SimuladorDeNuvem {
     
     public static void main(String[] args) {
     	
-        Log.printFormattedLine("Iniciando %s!", SimuladorDeNuvem.class.getSimpleName());
-        int Nuser = 1; // N° usuarios da nuvem
-        Calendar calendar = Calendar.getInstance(); //Pegando data e hora atual
-        boolean trace_flag = false; // trace events
-        
-        CloudSim.init(Nuser, calendar, trace_flag);//Inicializando Bibliotecas do CloudSim 
+        Log.printFormattedLine("Iniciando simulação!");
+        //int Nuser = 1; // N° usuarios da nuvem
+        //Calendar calendar = Calendar.getInstance(); //Pegando data e hora atual
+        //boolean trace_flag = false; // trace events
+        //CloudSim.init(Nuser, calendar);//Inicializando Bibliotecas do CloudSim 
+        CloudSim.init();
         
         //****************************************************************************
         //Criando dataCenter
-        DC dc1= new DC("DataCenter_0");
-        //CreateHost(mips, ram, storage)
-        dc1.CreateHosts(4);
-//        dc1.CreateHost(1000, 2048, 1000000);
-        Datacenter datacenter = dc1.CreateAndGetDatacenter();
-        //----------------------------------------------------------------------------
+        DC dc= new DC("ELAN");
+        
+        //dc1.CreateHosts(4);
+         //CreateHost(mips, ram, storage);
+        dc.CreateHost(1000, 2048, 1000000);
+        dc.CreateDatacenter();
         
         //****************************************************************************
        
@@ -65,8 +65,8 @@ public class SimuladorDeNuvem {
          * máquina física (Host)
          */
         VM v = new VM(brokerId);
-        v.CreateVMs(5);
-//        v.add(512,250,1);
+        //v.CreateVMs(5);
+        v.add(512,250,1);
         vmList = v.getList();
         
         //----------------------------------------------------------------------------
@@ -98,11 +98,12 @@ public class SimuladorDeNuvem {
 
      //  CloudSim.finishSimulation();
      //  CloudSim.runStop();
+        Log.printFormattedLine("Simulação finalizado!");
         
         List<Cloudlet> newList = broker.getCloudletsFinishedList();
         CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
 
-        Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
+        
         
     }
 }

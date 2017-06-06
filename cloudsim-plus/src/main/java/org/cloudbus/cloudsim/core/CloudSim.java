@@ -205,6 +205,13 @@ public class CloudSim {
     public static void init(int numUser, Calendar cal){
         init(numUser, cal, false);
     }
+    
+    /**
+     * @author Anselmo Mauricio Junior
+     */
+    public static void init(){
+    	init(1, Calendar.getInstance(), false);
+    }
 
     /**
      * Initialises CloudSim parameters. This method should be called before

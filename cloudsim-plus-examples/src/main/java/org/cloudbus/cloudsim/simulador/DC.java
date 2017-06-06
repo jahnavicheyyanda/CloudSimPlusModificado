@@ -56,13 +56,13 @@ public class DC extends NumRandom{
         this.name=name;
     }
     
+    /*
+     * Os Hosts Possuem informações sobre a quantidade de
+     * processamento, armazenamento, largura de banda e quantidade de memória disponível.
+     * Responsável por compartilhar recursos entre as máquinas virtuais.
+     */
     public void CreateHost(int mips,int ram,long storage){
         peList.add(new PeSimple(0, new PeProvisionerSimple(mips))); // need to store Pe id and MIPS Rating
-        /*
-         * Os Hosts Possuem informações sobre a quantidade de
-         * processamento, armazenamento, largura de banda e quantidade de memória disponível.
-         * Responsável por compartilhar recursos entre as máquinas virtuais.
-         */
         
         /*
          * VmScheduler implementa as políticas de distribuição de processamento da
@@ -70,8 +70,8 @@ public class DC extends NumRandom{
          */
         
         //Lista de maquinas Físicas (Host)
-        hostList.add(new HostSimple(hostId,new ResourceProvisionerSimple<>(new Ram(ram)),new ResourceProvisionerSimple<>(new Bandwidth(bw)), storage, peList,new VmSchedulerTimeShared(peList)) ); // This is our machine
-        hostId++;
+        hostList.add(new HostSimple(hostId,new ResourceProvisionerSimple<>(new Ram(ram)),new ResourceProvisionerSimple<>(new Bandwidth(bw)), storage, peList,new VmSchedulerTimeShared(peList))); 
+        hostId++;//id do próximo Host
     
     }
 
@@ -85,7 +85,7 @@ public class DC extends NumRandom{
             
         }
       
-        public DatacenterSimple CreateAndGetDatacenter() {
+        public DatacenterSimple CreateDatacenter() {
 
         
 
