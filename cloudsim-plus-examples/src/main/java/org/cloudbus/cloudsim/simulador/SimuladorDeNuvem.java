@@ -43,7 +43,8 @@ public class SimuladorDeNuvem {
         DC dc= new DC("ELAN");
         
         //dc1.CreateHosts(4);
-         //CreateHost(mips, ram, storage);
+        //CreateHost(mips, ram, storage);
+        //storage e ram em MB
         dc.CreateHost(1000, 2048, 1000000);
         dc.CreateDatacenter();
         

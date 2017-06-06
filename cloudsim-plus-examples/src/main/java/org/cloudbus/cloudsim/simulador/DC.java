@@ -92,12 +92,13 @@ public class DC extends NumRandom{
         String arch = "x86"; // system architecture
         String os = "Linux"; // operating system
         String vmm = "Xen";
-        double time_zone = 10.0; // time zone this resource located
-        double cost = 3.0; // the cost of using processing in this resource
-        double costPerMem = 0.05; // the cost of using memory in this resource
-        double costPerStorage = 0.001; // the cost of using storage in this
-        // resource
-        double costPerBw = 0.0; // the cost of using bw in this resource
+        double time_zone = 10.0; // Zona horaria onde está situado o datacenter
+        double cost = 0.0; // Custo por hora de uma instância
+        double costPerMem = 0.0; // Custo por usar RAM
+        double costPerStorage = 0.0; // Custo por usar o armazenamento
+        double costPerBw = 0.0; // custo por usar BW
+       
+        
         LinkedList<FileStorage> storageList = new LinkedList<>(); // we are not adding SAN
         // devices by now
         
