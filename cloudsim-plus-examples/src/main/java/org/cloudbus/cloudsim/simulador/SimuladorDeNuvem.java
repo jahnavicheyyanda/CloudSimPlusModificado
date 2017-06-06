@@ -28,7 +28,7 @@ public class SimuladorDeNuvem {
   
     
     public static void main(String[] args) {
-
+    	//teste
         Log.printFormattedLine("Iniciando %s!", SimuladorDeNuvem.class.getSimpleName());
         int Nuser = 1; // N° usuarios da nuvem
         Calendar calendar = Calendar.getInstance(); //Pegando data e hora atual
