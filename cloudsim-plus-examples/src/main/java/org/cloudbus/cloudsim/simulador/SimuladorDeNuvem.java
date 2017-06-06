@@ -16,6 +16,8 @@ import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.examples.CloudSimExample7;
+import org.cloudbus.cloudsim.util.CloudletsTableBuilderHelper;
+import org.cloudbus.cloudsim.util.TextTableBuilder;
 
 /**
  * Classe Simulador de Nuvem
@@ -97,10 +99,10 @@ public class SimuladorDeNuvem {
      //  CloudSim.finishSimulation();
      //  CloudSim.runStop();
         
-      //  List<Cloudlet> newList = broker.getCloudletsFinishedList();
-      //  CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
+        List<Cloudlet> newList = broker.getCloudletsFinishedList();
+        CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
 
-      //  Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
+        Log.printFormattedLine("%s Finalizado!", SimuladorDeNuvem.class.getSimpleName());
         
     }
 }
