@@ -46,6 +46,7 @@ public class DC extends NumRandom{
     private int hostId;
     private long bw;
     private String name;
+    private int mips;
     
     
     public DC(String name){
@@ -54,6 +55,7 @@ public class DC extends NumRandom{
                 bw = 10000;
         this.name=name;
         hostId=0;
+        mips =1000;
     }
     
     /*
@@ -61,7 +63,7 @@ public class DC extends NumRandom{
      * processamento, armazenamento, largura de banda e quantidade de memória disponível.
      * Responsável por compartilhar recursos entre as máquinas virtuais.
      */
-    public void CreateHost(String Nome,int mips,int ram,long storage){
+    public void CreateHost(String Nome,int ram,long storage){
         peList.add(new PeSimple(0, new PeProvisionerSimple(mips))); // need to store Pe id and MIPS Rating
         
         /*

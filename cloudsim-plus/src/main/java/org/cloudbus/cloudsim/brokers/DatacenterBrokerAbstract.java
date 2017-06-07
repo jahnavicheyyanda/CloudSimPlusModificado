@@ -266,6 +266,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
         if (vmLocated) {
             /**
              * @todo @author manoelcampos It should remove the created VM from the waiting list.
+             * Modificado por @Anselmo Mauricio Junior
              */
             getVmsCreatedList().add(vm);
             if(VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost()==null)

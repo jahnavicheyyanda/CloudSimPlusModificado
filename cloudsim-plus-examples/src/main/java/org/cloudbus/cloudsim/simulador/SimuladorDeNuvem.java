@@ -45,17 +45,17 @@ public class SimuladorDeNuvem {
         DC dc= new DC("ELAN");
         
         //dc1.CreateHosts(4);
-        //CreateHost(mips, ram, storage);
+        //CreateHost(nome, ram, storage);
         
-        dc.CreateHost("Murici",1000, 3*GB, 500*GB);
-        dc.CreateHost("Cajueiro",1000, 16*GB, 1*TB);
-        dc.CreateHost("Amendoeira",1000, 8*GB, 1*TB);
-        dc.CreateHost("Angelim",1000, 32*GB, 1*TB);
-        dc.CreateHost("Mangabeira",1000, 16*GB, 1*TB);
-        dc.CreateHost("Pitombeira",1000, 8*GB, 4*TB);
-        dc.CreateHost("Jequitiba",1000, 48*GB, 1*TB);
-        dc.CreateHost("Sapucaia",1000, 8*GB, 500*GB);
-        dc.CreateHost("Cedro",1000, 8*GB, 1*TB);
+        dc.CreateHost("Murici", 3*GB, 500*GB);
+        dc.CreateHost("Cajueiro", 16*GB, 1*TB);
+        dc.CreateHost("Amendoeira", 8*GB, 1*TB);
+        dc.CreateHost("Angelim", 32*GB, 1*TB);
+        dc.CreateHost("Mangabeira", 16*GB, 1*TB);
+        dc.CreateHost("Pitombeira", 8*GB, 4*TB);
+        dc.CreateHost("Jequitiba", 48*GB, 1*TB);
+        dc.CreateHost("Sapucaia", 8*GB, 500*GB);
+        dc.CreateHost("Cedro", 8*GB, 1*TB);
         
         dc.CreateDatacenter();
         
