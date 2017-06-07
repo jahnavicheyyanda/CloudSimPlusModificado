@@ -324,6 +324,7 @@ public interface Host extends Identificable {
      */
     void setOnUpdateVmsProcessingListener(EventListener<HostUpdatesVmsProcessingEventInfo> onUpdateVmsProcessingListener);    
     
+    String getNomeHost();
     /**
      * A property that implements the Null Object Design Pattern for {@link Host}
      * objects.
@@ -366,5 +367,6 @@ public interface Host extends Identificable {
         @Override public EventListener<HostUpdatesVmsProcessingEventInfo> getOnUpdateVmsProcessingListener() { return EventListener.NULL; }
         @Override public void setOnUpdateVmsProcessingListener(EventListener<HostUpdatesVmsProcessingEventInfo> onUpdateVmsProcessingListener) {}
         @Override public long getAvailableStorage() { return 0L; }
+        @Override public String getNomeHost(){return null;}
     };
 }

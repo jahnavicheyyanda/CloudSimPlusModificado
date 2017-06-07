@@ -203,6 +203,23 @@ public class PeList {
         Log.printConcatLine(resName, " - Machine: ", hostId, " is ", status);
         setStatusFailed(peList, failed);
     }
+    
+    /**
+     * @author Anselmo Mauricio Junior
+     * @param peList
+     * @param resName
+     * @param hostId
+     * @param failed
+     */
+    public static <T extends Pe> void setStatusFailed(
+            List<T> peList,
+            String resName,
+            String hostId,
+            boolean failed) {
+        String status = (failed ? "FAILED" : "WORKING");
+        Log.printConcatLine(resName, " - Machine: ", hostId, " is ", status);
+        setStatusFailed(peList, failed);
+    }
 
     /**
      * Sets the status of PEs of a host to FAILED or FREE.

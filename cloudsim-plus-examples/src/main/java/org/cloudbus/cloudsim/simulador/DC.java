@@ -51,9 +51,9 @@ public class DC extends NumRandom{
     public DC(String name){
         hostList = new ArrayList<>();
         peList = new ArrayList<>();
-        hostId = 0;
-        bw = 10000;
+                bw = 10000;
         this.name=name;
+        hostId=0;
     }
     
     /*
@@ -61,7 +61,7 @@ public class DC extends NumRandom{
      * processamento, armazenamento, largura de banda e quantidade de memória disponível.
      * Responsável por compartilhar recursos entre as máquinas virtuais.
      */
-    public void CreateHost(int mips,int ram,long storage){
+    public void CreateHost(String Nome,int mips,int ram,long storage){
         peList.add(new PeSimple(0, new PeProvisionerSimple(mips))); // need to store Pe id and MIPS Rating
         
         /*
@@ -70,21 +70,21 @@ public class DC extends NumRandom{
          */
         
         //Lista de maquinas Físicas (Host)
-        hostList.add(new HostSimple(hostId,new ResourceProvisionerSimple<>(new Ram(ram)),new ResourceProvisionerSimple<>(new Bandwidth(bw)), storage, peList,new VmSchedulerTimeShared(peList))); 
+        hostList.add(new HostSimple(Nome,hostId,new ResourceProvisionerSimple<>(new Ram(ram)),new ResourceProvisionerSimple<>(new Bandwidth(bw)), storage, peList,new VmSchedulerTimeShared(peList))); 
         hostId++;//id do próximo Host
     
     }
 
     
-        public void CreateHosts(int n){
-            int mips[]={500,1000,1500,2000};
-            int ram[]={512,1000,2000,4000};
-            long storage[]={500000,1000000,1500000,2000000};
-            for(int i=0;i<n;i++)
-            CreateHost(mips[rdm(4)], ram[rdm(4)], storage[rdm(4)]);
-            
-        }
-      
+//        public void CreateHosts(int n){
+//            int mips[]={500,1000,1500,2000};
+//            int ram[]={512,1000,2000,4000};
+//            long storage[]={500000,1000000,1500000,2000000};
+//            for(int i=0;i<n;i++)
+//            CreateHost(mips[rdm(4)], ram[rdm(4)], storage[rdm(4)]);
+//            
+//        }
+//      
         public DatacenterSimple CreateDatacenter() {
 
         

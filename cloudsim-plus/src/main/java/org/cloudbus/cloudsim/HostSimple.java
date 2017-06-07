@@ -87,6 +87,7 @@ public class HostSimple implements Host {
      */
     private EventListener<HostUpdatesVmsProcessingEventInfo> onUpdateVmsProcessingListener;
 
+    private String Nome;
     /**
      * Instantiates a new Host.
      *
@@ -97,7 +98,23 @@ public class HostSimple implements Host {
      * @param peList the host's PEs list
      * @param vmScheduler the vm scheduler
      */
-    public HostSimple(
+    public HostSimple(int id,
+            ResourceProvisioner<Integer> ramProvisioner,
+            ResourceProvisioner<Long> bwProvisioner,
+            long storageCapacity,
+            List<Pe> peList,
+            VmScheduler vmScheduler) {
+        setId(id);
+        setNome(Nome);
+        setRamProvisioner(ramProvisioner);
+        setBwProvisioner(bwProvisioner);
+        storage = new RawStorage(storageCapacity);
+        setVmScheduler(vmScheduler);
+        setPeList(peList);
+        setFailed(false);
+        onUpdateVmsProcessingListener = EventListener.NULL;
+    }
+    public HostSimple(String Nome,
             int id,
             ResourceProvisioner<Integer> ramProvisioner,
             ResourceProvisioner<Long> bwProvisioner,
@@ -105,6 +122,7 @@ public class HostSimple implements Host {
             List<Pe> peList,
             VmScheduler vmScheduler) {
         setId(id);
+        setNome(Nome);
         setRamProvisioner(ramProvisioner);
         setBwProvisioner(bwProvisioner);
         storage = new RawStorage(storageCapacity);
@@ -504,4 +522,15 @@ public class HostSimple implements Host {
     public long getAvailableStorage() {
         return getStorage().getAvailableResource();
     }
+
+	@Override
+	public String getNomeHost() {
+		return Nome;
+	}
+
+
+
+	public void setNome(String nome) {
+		Nome = nome;
+	}
 }

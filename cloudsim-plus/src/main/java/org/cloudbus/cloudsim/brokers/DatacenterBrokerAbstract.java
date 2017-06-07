@@ -268,7 +268,11 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
              * @todo @author manoelcampos It should remove the created VM from the waiting list.
              */
             getVmsCreatedList().add(vm);
-            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " has been created in Datacenter #", datacenterId, ", Host #", VmList.getById(getVmsCreatedList(), vmId).getHost().getId());
+            if(VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost()==null)
+            	Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " has been created in Datacenter #", datacenterId, ", Host #", VmList.getById(getVmsCreatedList(), vmId).getHost().getId());
+            else	
+            	Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " has been created in Datacenter #", datacenterId, ", Host #", VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost());
+        
         } else {
             Log.printFormattedLine("The request to create Vm %d was not processed because the Vm was not found in the waiting list.", vmId);
         }

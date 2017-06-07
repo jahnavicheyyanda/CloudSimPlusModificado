@@ -39,13 +39,24 @@ public class SimuladorDeNuvem {
         CloudSim.init();
         
         //****************************************************************************
+        int GB = 1000;
+        int TB = 1000000;
         //Criando dataCenter
         DC dc= new DC("ELAN");
         
         //dc1.CreateHosts(4);
         //CreateHost(mips, ram, storage);
-        //storage e ram em MB
-        dc.CreateHost(1000, 2048, 1000000);
+        
+        dc.CreateHost("Murici",1000, 3*GB, 500*GB);
+        dc.CreateHost("Cajueiro",1000, 16*GB, 1*TB);
+        dc.CreateHost("Amendoeira",1000, 8*GB, 1*TB);
+        dc.CreateHost("Angelim",1000, 32*GB, 1*TB);
+        dc.CreateHost("Mangabeira",1000, 16*GB, 1*TB);
+        dc.CreateHost("Pitombeira",1000, 8*GB, 4*TB);
+        dc.CreateHost("Jequitiba",1000, 48*GB, 1*TB);
+        dc.CreateHost("Sapucaia",1000, 8*GB, 500*GB);
+        dc.CreateHost("Cedro",1000, 8*GB, 1*TB);
+        
         dc.CreateDatacenter();
         
         //****************************************************************************
@@ -66,8 +77,9 @@ public class SimuladorDeNuvem {
          * máquina física (Host)
          */
         VM v = new VM(brokerId);
-        //v.CreateVMs(5);
-        v.add(512,250,1);
+        v.CreateVMs(15);
+        //v.add(512,250,1);
+        //v.add(512,250,1);
         vmList = v.getList();
         
         //----------------------------------------------------------------------------
@@ -99,7 +111,7 @@ public class SimuladorDeNuvem {
 
      //  CloudSim.finishSimulation();
      //  CloudSim.runStop();
-        Log.printFormattedLine("Simulação finalizado!");
+        Log.printFormattedLine("Simulação finalizada!");
         
         List<Cloudlet> newList = broker.getCloudletsFinishedList();
         CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
