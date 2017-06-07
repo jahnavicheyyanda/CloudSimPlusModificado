@@ -77,7 +77,7 @@ public class SimuladorDeNuvem {
          * máquina física (Host)
          */
         VM v = new VM(brokerId);
-        v.CreateVMs(15);
+        v.CreateVMs(50);
         //v.add(512,250,1);
         //v.add(512,250,1);
         vmList = v.getList();

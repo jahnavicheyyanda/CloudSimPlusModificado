@@ -2,6 +2,7 @@ package org.cloudbus.cloudsim.util;
 
 import java.util.List;
 import org.cloudbus.cloudsim.Cloudlet;
+import org.cloudbus.cloudsim.core.CloudSim;
 
 /**
  * A class to help printing simulation results for a list of cloudlets.
@@ -37,9 +38,10 @@ public class CloudletsTableBuilderHelper {
      * @param row The row to be added the data to
      */
     protected void addDataToRow(Cloudlet cloudlet, List<Object> row) {
-        row.add(cloudlet.getId());
+        
+    	row.add(cloudlet.getId());
         row.add(cloudlet.getStatus().name());
-        row.add(cloudlet.getDatacenterId());
+        row.add(CloudSim.getEntityName(cloudlet.getDatacenterId()));
         row.add(cloudlet.getVmId());
         row.add(cloudlet.getCloudletLength());
         row.add(cloudlet.getNumberOfPes());
@@ -51,7 +53,7 @@ public class CloudletsTableBuilderHelper {
     protected void createTableColumns() {
         printer.addColumn("Cloudlet").setSubTitle("ID");
         printer.addColumn("Status ");
-        printer.addColumn("DC").setSubTitle("ID");
+        printer.addColumn(" DC ").setSubTitle("Name");
         printer.addColumn("VM").setSubTitle("ID");
         printer.addColumn("CloudletLen").setSubTitle("MI");
         printer.addColumn("CloudletPEs").setSubTitle("CPU cores");

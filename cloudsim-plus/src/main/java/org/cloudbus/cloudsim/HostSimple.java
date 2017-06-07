@@ -230,28 +230,38 @@ public class HostSimple implements Host {
 
     @Override
     public boolean vmCreate(Vm vm) {
+    	
+    	String IdOrName;
+    	
+    	if(getNomeHost()!=null){
+    		IdOrName = getNomeHost();
+    	}else
+    		IdOrName = Integer.toString(getId());
+    	
+    	
+    	
         if (!storage.isResourceAmountAvailable(vm.getSize())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Allocation of VM #", vm.getId(), " to Host #", getId(),
-                    " failed by storage");
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+                    " falhou por storage");
             return false;
         }
 
         if (!getRamProvisioner().allocateResourceForVm(vm, vm.getCurrentRequestedRam())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Allocation of VM #", vm.getId(), " to Host #", getId(),
-                    " failed by RAM");
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+                    " falhou por RAM");
             return false;
         }
 
         if (!getBwProvisioner().allocateResourceForVm(vm, vm.getCurrentRequestedBw())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Allocation of VM #", vm.getId(), " to Host #", getId(),
-                    " failed by BW");
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+                    " falhou por BW");
             getRamProvisioner().deallocateResourceForVm(vm);
             return false;
         }
 
         if (!getVmScheduler().allocatePesForVm(vm, vm.getCurrentRequestedMips())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Allocation of VM #", vm.getId(), " to Host #", getId(),
-                    " failed by MIPS");
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+                    " falhou por MIPS");
             getRamProvisioner().deallocateResourceForVm(vm);
             getBwProvisioner().deallocateResourceForVm(vm);
             return false;

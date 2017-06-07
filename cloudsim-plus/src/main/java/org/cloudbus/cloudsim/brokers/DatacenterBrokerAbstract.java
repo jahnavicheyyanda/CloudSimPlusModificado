@@ -261,18 +261,27 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
      */
     protected boolean processSuccessVmCreationInDatacenter(int vmId, int datacenterId) {
         getVmsToDatacentersMap().put(vmId, datacenterId);
+        String datacenterName = CloudSim.getEntityName(datacenterId);
+        String IdOrName = null;
         Vm vm = VmList.getById(getVmsWaitingList(), vmId);
         boolean vmLocated = vm != Vm.NULL;
+        
+        
+        
+       
         if (vmLocated) {
             /**
              * @todo @author manoelcampos It should remove the created VM from the waiting list.
              * Modificado por @Anselmo Mauricio Junior
              */
             getVmsCreatedList().add(vm);
-            if(VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost()==null)
-            	Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " has been created in Datacenter #", datacenterId, ", Host #", VmList.getById(getVmsCreatedList(), vmId).getHost().getId());
-            else	
-            	Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " has been created in Datacenter #", datacenterId, ", Host #", VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost());
+
+            if(VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost()!=null)
+            	IdOrName = VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost();
+            else
+            	IdOrName = Integer.toString(VmList.getById(getVmsCreatedList(), vmId).getHost().getId());
+            
+            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " Foi criada no Datacenter #", datacenterName, ", Host #", IdOrName);
         
         } else {
             Log.printFormattedLine("The request to create Vm %d was not processed because the Vm was not found in the waiting list.", vmId);
@@ -309,11 +318,11 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
         Cloudlet cloudlet = (Cloudlet) ev.getData();
         getCloudletsFinishedList().add(cloudlet);
         notifyCloudletFinishListener(cloudlet);
-        Log.printFormattedLine("%.1f: %s: %s %d received", CloudSim.clock(), getName(), cloudlet.getClass().getSimpleName(), cloudlet.getId());
+        Log.printFormattedLine("%.1f: %s: %s %d recebido", CloudSim.clock(), getName(), cloudlet.getClass().getSimpleName(), cloudlet.getId());
         cloudletsCreated--;
         if (getCloudletsWaitingList().isEmpty() && cloudletsCreated == 0) {
             // all cloudlets executed
-            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": All Cloudlets executed. Finishing...");
+            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Todos os Cloudlets executados. Encerrando...");
             destroyVms();
             finishExecution();
         } else if (hasMoreCloudletsToBeExecuted()) {
@@ -372,7 +381,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
         String datacenterName = CloudSim.getEntityName(datacenterId);
         for (Vm vm : getVmsWaitingList()) {
             if (!getVmsToDatacentersMap().containsKey(vm.getId())) {
-                Log.printLine(CloudSim.clock() + ": " + getName() + ": Trying to Create VM #" + vm.getId() + " in " + datacenterName);
+                Log.printLine(CloudSim.clock() + ": " + getName() + ": Tentando criar VM #" + vm.getId() + " em " + datacenterName);
                 sendNow(datacenterId, CloudSimTags.VM_CREATE_ACK, vm);
                 requestedVms++;
             }
@@ -406,7 +415,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
                 Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Postponing execution of cloudlet ", cloudlet.getId(), ": bounded VM not available");
                 continue;
             }
-            Log.printFormattedLine("%.2f: %s: Sending %s %d to VM #%d", CloudSim.clock(), getName(), cloudlet.getClass().getSimpleName(), cloudlet.getId(), getLastSelectedVm().getId());
+            Log.printFormattedLine("%.2f: %s: Enviando %s %d para VM #%d", CloudSim.clock(), getName(), cloudlet.getClass().getSimpleName(), cloudlet.getId(), getLastSelectedVm().getId());
             cloudlet.setVmId(lastSelectedVm.getId());
             send(getVmsToDatacentersMap().get(getLastSelectedVm().getId()), 
                     cloudlet.getSubmissionDelay(), CloudSimTags.CLOUDLET_SUBMIT, cloudlet);
@@ -429,7 +438,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
      */
     protected void destroyVms() {
         for (Vm vm : getVmsCreatedList()) {
-            Log.printConcatLine(CloudSim.clock(), ": " + getName(), ": Destroying VM #", vm.getId());
+            Log.printConcatLine(CloudSim.clock(), ": " + getName(), ": Destruindo VM #", vm.getId());
             sendNow(getVmsToDatacentersMap().get(vm.getId()), CloudSimTags.VM_DESTROY, vm);
         }
         getVmsCreatedList().clear();
@@ -447,7 +456,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
 
     @Override
     public void shutdownEntity() {
-        Log.printConcatLine(getName(), " is shutting down...");
+        Log.printConcatLine(getName(), " está desligando...");
     }
 
     @Override
