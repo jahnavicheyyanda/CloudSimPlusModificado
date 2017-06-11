@@ -6,18 +6,31 @@
 package org.cloudbus.cloudsim.simulador;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import org.cloudbus.cloudsim.Cloudlet;
+import org.cloudbus.cloudsim.CloudletSimple;
 import org.cloudbus.cloudsim.Datacenter;
+import org.cloudbus.cloudsim.Host;
+import org.cloudbus.cloudsim.HostSimple;
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.brokers.DatacenterBroker;
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.examples.CloudSimExample7;
+import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
+import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple;
+import org.cloudbus.cloudsim.resources.Bandwidth;
+import org.cloudbus.cloudsim.resources.Pe;
+import org.cloudbus.cloudsim.resources.PeSimple;
+import org.cloudbus.cloudsim.resources.Ram;
+import org.cloudbus.cloudsim.schedulers.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.util.CloudletsTableBuilderHelper;
 import org.cloudbus.cloudsim.util.TextTableBuilder;
+import org.cloudbus.cloudsim.utilizationmodels.UtilizationModel;
+import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelFull;
 
 /**
  * Classe Simulador de Nuvem
@@ -56,8 +69,8 @@ public class SimuladorDeNuvem {
         dc.CreateHost("Jequitiba", 48*GB, 1*TB);
         dc.CreateHost("Sapucaia", 8*GB, 500*GB);
         dc.CreateHost("Cedro", 8*GB, 1*TB);
-        
-        dc.CreateDatacenter();
+        Datacenter d=dc.CreateDatacenter();
+        //Datacenter d=dc.CreateDatacenter();
         
         //****************************************************************************
        
@@ -77,12 +90,16 @@ public class SimuladorDeNuvem {
          * máquina física (Host)
          */
         VM v = new VM(brokerId);
-        v.CreateVMs(50);
+        //v.CreateVMs(50);
         //v.add(512,250,1);
         //v.add(512,250,1);
+        v.add(5000, 250,1);
         vmList = v.getList();
-        
+       
+      
         //----------------------------------------------------------------------------
+        
+        
         
         //*****************************************************************************
         
@@ -92,14 +109,21 @@ public class SimuladorDeNuvem {
          * necessários.
          */
         
-            CL cl = new CL(brokerId);
-            cl.CreateCoudLets(10);
-//          cl.add(4000, 1,300,10);
-            cloudletList = cl.getList();
+              CL cl = new CL(brokerId);
+//            cl.CreateCoudLets(10);
+////          cl.add(4000, 1,300,10);
+              cl.add(0,4000, 1,300,10);//especifica para qual VM o cloudlet sera enviado
+              cloudletList = cl.getList();
+        // Cloudlet properties
         
+          
+
+        // submit cloudlet list to the broker
+        //broker.submitCloudletList(cloudletList);
         //----------------------------------------------------------------------------
         broker.submitVmList(vmList);
         broker.submitCloudletList(cloudletList);
+        CloudSim.startSimulation();//Iniciando simulação
 //        try{
 //        ThreadMonitor monitor = new ThreadMonitor();
 //            monitor.start();
@@ -107,7 +131,7 @@ public class SimuladorDeNuvem {
 //        }catch(Exception e){}
 //      NW nw=new NW();
 //      nw.ActiveNetWorkTopology(datacenter, broker);
-        CloudSim.startSimulation();//Iniciando simulação
+       
 
      //  CloudSim.finishSimulation();
      //  CloudSim.runStop();
@@ -122,39 +146,39 @@ public class SimuladorDeNuvem {
 }
 
 
-class ThreadMonitor extends Thread {
-    /**
-     * The DatacenterBroker created inside the thread.
-     */
-    private DatacenterBroker broker = null;
-
-    @Override
-    public void run() {
-        CloudSim.pauseSimulation(10);
-
-        while (true) {
-            if (CloudSim.isPaused()) {
-                break;
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        Log.printLine("\n\n\n" + CloudSim.clock() + ": The simulation is paused for 5 sec \n\n");
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        CloudSim.resumeSimulation();
-    }
-
-    public DatacenterBroker getBroker() {
-        return broker;
-    }
-};
+//class ThreadMonitor extends Thread {
+//    /**
+//     * The DatacenterBroker created inside the thread.
+//     */
+//    private DatacenterBroker broker = null;
+//
+//    @Override
+//    public void run() {
+//        CloudSim.pauseSimulation(10);
+//
+//        while (true) {
+//            if (CloudSim.isPaused()) {
+//                break;
+//            }
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        Log.printLine("\n\n\n" + CloudSim.clock() + ": The simulation is paused for 5 sec \n\n");
+//
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        CloudSim.resumeSimulation();
+//    }
+//
+//    public DatacenterBroker getBroker() {
+//        return broker;
+//    }
+//};

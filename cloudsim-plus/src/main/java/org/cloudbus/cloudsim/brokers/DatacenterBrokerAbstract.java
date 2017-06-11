@@ -304,7 +304,10 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
             DatacenterToVmEventInfo info = new DatacenterToVmEventInfo(datacenter, vm);
             vm.getOnVmCreationFailureListener().update(info);
         }
-        Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Creation of VM #", vmId, " failed in Datacenter #", datacenterId);
+        String IdOrName = CloudSim.getEntity(datacenterId).getName();
+        if(IdOrName==null)
+        	IdOrName= Integer.toString(datacenterId);
+        Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Criação da VM #", vmId, " no datacenter #", IdOrName," falhou");
     }
 
     /**
