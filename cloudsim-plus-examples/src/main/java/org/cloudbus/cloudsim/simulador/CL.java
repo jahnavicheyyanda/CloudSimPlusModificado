@@ -39,6 +39,13 @@ public class CL extends NumRandom{
     list.add(cloudlet);
     indice++;
     }
+    public void add(int idvm,long length,int pesNumber,int fileSize,int outputSize){
+        Cloudlet cloudlet = new CloudletSimple(indice, length, pesNumber, fileSize, outputSize, utilizationModel, utilizationModel, utilizationModel);
+        cloudlet.setUserId(userId);
+        cloudlet.setVmId(idvm);
+        list.add(cloudlet);
+        indice++;
+        }
     
      public void CreateCoudLets(int n){
             long length[]={100,300,500,1000,1500,2000};

@@ -14,6 +14,7 @@ import org.cloudbus.cloudsim.DatacenterCharacteristicsSimple;
 import org.cloudbus.cloudsim.DatacenterSimple;
 import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.HostSimple;
+import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple;
 import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
 import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple;
@@ -63,7 +64,7 @@ public class DC extends NumRandom{
      * processamento, armazenamento, largura de banda e quantidade de memória disponível.
      * Responsável por compartilhar recursos entre as máquinas virtuais.
      */
-    public void CreateHost(String Nome,int ram,long storage){
+    public Host CreateHost(String Nome,int ram,long storage){
         peList.add(new PeSimple(0, new PeProvisionerSimple(mips))); // need to store Pe id and MIPS Rating
         
         /*
@@ -72,10 +73,16 @@ public class DC extends NumRandom{
          */
         
         //Lista de maquinas Físicas (Host)
-        hostList.add(new HostSimple(Nome,hostId,new ResourceProvisionerSimple<>(new Ram(ram)),new ResourceProvisionerSimple<>(new Bandwidth(bw)), storage, peList,new VmSchedulerTimeShared(peList))); 
+        Host h = new HostSimple(Nome,hostId,new ResourceProvisionerSimple<>(new Ram(ram)),new ResourceProvisionerSimple<>(new Bandwidth(bw)), storage, peList,new VmSchedulerTimeShared(peList));
+        hostList.add(h); 
         hostId++;//id do próximo Host
+        return h;
     
     }
+    public void setHost(Host h){
+    	hostList.add(h); 
+    }
+
 
     
 //        public void CreateHosts(int n){
