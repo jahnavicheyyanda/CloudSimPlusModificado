@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.cloudbus.cloudsim.Host;
+import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.VmSimple;
 import org.cloudbus.cloudsim.schedulers.CloudletSchedulerTimeShared;
@@ -40,6 +41,13 @@ public class VM extends NumRandom{
         list.add(vm);
         indice ++;
     }
+    
+    public void add(Host h,int ram,int mips,int pesNumber){
+        Vm vm = new VmSimple(indice, userId, mips, pesNumber, ram, bw, size, vmm, new CloudletSchedulerTimeShared());
+        vm.setHost(h);
+        list.add(vm);
+        indice ++;
+    }
 
     
      public void CreateVMs(int n){
@@ -51,6 +59,8 @@ public class VM extends NumRandom{
             
         }
     public List<Vm>  getList(){   
+
+        
         return list;
     }
 }

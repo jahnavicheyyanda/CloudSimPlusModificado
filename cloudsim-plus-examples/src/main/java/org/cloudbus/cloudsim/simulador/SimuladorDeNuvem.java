@@ -93,10 +93,12 @@ public class SimuladorDeNuvem {
         //v.CreateVMs(50);
         //v.add(512,250,1);
         //v.add(512,250,1);
-        v.add(5000, 250,1);
+       // v.add(5000, 250,1);
+        v.add(d.getHost(4),512,250,1);
+        
         vmList = v.getList();
-       
-      
+        Log.printFormattedLine("Host %s",vmList.get(0).getHost().getNomeHost());
+        broker.submitVmList(vmList);
         //----------------------------------------------------------------------------
         
         
@@ -114,6 +116,7 @@ public class SimuladorDeNuvem {
 ////          cl.add(4000, 1,300,10);
               cl.add(0,4000, 1,300,10);//especifica para qual VM o cloudlet sera enviado
               cloudletList = cl.getList();
+              broker.submitCloudletList(cloudletList);
         // Cloudlet properties
         
           
@@ -121,8 +124,8 @@ public class SimuladorDeNuvem {
         // submit cloudlet list to the broker
         //broker.submitCloudletList(cloudletList);
         //----------------------------------------------------------------------------
-        broker.submitVmList(vmList);
-        broker.submitCloudletList(cloudletList);
+        //broker.submitVmList(vmList);
+       
         CloudSim.startSimulation();//Iniciando simulação
 //        try{
 //        ThreadMonitor monitor = new ThreadMonitor();

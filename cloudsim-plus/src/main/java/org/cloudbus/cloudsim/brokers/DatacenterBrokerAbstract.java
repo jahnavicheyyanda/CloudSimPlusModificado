@@ -276,10 +276,10 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
              */
             getVmsCreatedList().add(vm);
 
-            if(VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost()!=null)
-            	IdOrName = VmList.getById(getVmsCreatedList(), vmId).getHost().getNomeHost();
+            if(vm.getHost().getNomeHost()!=null)
+            	IdOrName = vm.getHost().getNomeHost();
             else
-            	IdOrName = Integer.toString(VmList.getById(getVmsCreatedList(), vmId).getHost().getId());
+            	IdOrName = Integer.toString(vm.getHost().getId());
             
             Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " Foi criada no Datacenter #", datacenterName, ", Host #", IdOrName);
         
@@ -382,8 +382,8 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
     protected void requestDatacenterToCreateWaitingVms(int datacenterId) {
         int requestedVms = 0;
         String datacenterName = CloudSim.getEntityName(datacenterId);
-        for (Vm vm : getVmsWaitingList()) {
-            if (!getVmsToDatacentersMap().containsKey(vm.getId())) {
+        for (Vm vm : getVmsWaitingList()) {        	
+                        if (!getVmsToDatacentersMap().containsKey(vm.getId())) {
                 Log.printLine(CloudSim.clock() + ": " + getName() + ": Tentando criar VM #" + vm.getId() + " em " + datacenterName);
                 sendNow(datacenterId, CloudSimTags.VM_CREATE_ACK, vm);
                 requestedVms++;
