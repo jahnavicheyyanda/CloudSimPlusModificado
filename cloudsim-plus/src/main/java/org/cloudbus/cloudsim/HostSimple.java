@@ -232,43 +232,45 @@ public class HostSimple implements Host {
     public boolean vmCreate(Vm vm) {
     	
     	String IdOrName;
-    	
+    	  vm.setHost(null);  	
     	if(getNomeHost()!=null){
     		IdOrName = getNomeHost();
     	}else
-    		IdOrName = Integer.toString(getId());
+    		IdOrName = "#"+Integer.toString(getId());
     	
     	
     	
         if (!storage.isResourceAmountAvailable(vm.getSize())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host ", IdOrName,
                     " falhou por storage");
             return false;
         }
 
         if (!getRamProvisioner().allocateResourceForVm(vm, vm.getCurrentRequestedRam())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host ", IdOrName,
                     " falhou por RAM");
             return false;
         }
 
         if (!getBwProvisioner().allocateResourceForVm(vm, vm.getCurrentRequestedBw())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host ", IdOrName,
                     " falhou por BW");
             getRamProvisioner().deallocateResourceForVm(vm);
             return false;
         }
 
         if (!getVmScheduler().allocatePesForVm(vm, vm.getCurrentRequestedMips())) {
-            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host #", IdOrName,
+            Log.printConcatLine("[VmScheduler.vmCreate] Alocação da VM #", vm.getId(), " para o Host ", IdOrName,
                     " falhou por MIPS");
             getRamProvisioner().deallocateResourceForVm(vm);
             getBwProvisioner().deallocateResourceForVm(vm);
             return false;
         }
 
+        
         getStorage().allocateResource(vm.getSize());
         getVmList().add(vm);
+        
         vm.setHost(this);
         return true;
     }

@@ -70,6 +70,7 @@ public class VmAllocationPolicySimple extends VmAllocationPolicyAbstract {
     @Override
     public boolean allocateHostForVm(Vm vm) {
         int requiredPes = vm.getNumberOfPes();
+        Host host;
         boolean result = false;
         int tries = 0;
         List<Integer> freePesTmp = new ArrayList<>();
@@ -80,6 +81,7 @@ public class VmAllocationPolicySimple extends VmAllocationPolicyAbstract {
                 int moreFree = Integer.MIN_VALUE;
                 int idx = -1;
 
+                if(vm.getHost()==null){
                 // we want the host with less pes in use
                 for (int i = 0; i < freePesTmp.size(); i++) {
                     if (freePesTmp.get(i) > moreFree) {
@@ -88,7 +90,13 @@ public class VmAllocationPolicySimple extends VmAllocationPolicyAbstract {
                     }
                 }
 
-                Host host = getHostList().get(idx);
+                host = getHostList().get(idx);
+            }else{
+            	host = vm.getHost();
+                idx = host.getId();	
+            }
+                
+               // Log.printFormattedLine("Host %s",host.getNomeHost());
                 result = host.vmCreate(vm);
 
                 if (result) {

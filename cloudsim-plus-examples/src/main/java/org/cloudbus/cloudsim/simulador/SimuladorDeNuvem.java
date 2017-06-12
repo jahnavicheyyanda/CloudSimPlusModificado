@@ -6,31 +6,16 @@
 package org.cloudbus.cloudsim.simulador;
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import org.cloudbus.cloudsim.Cloudlet;
-import org.cloudbus.cloudsim.CloudletSimple;
 import org.cloudbus.cloudsim.Datacenter;
-import org.cloudbus.cloudsim.Host;
-import org.cloudbus.cloudsim.HostSimple;
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.brokers.DatacenterBroker;
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.core.CloudSim;
-import org.cloudbus.cloudsim.examples.CloudSimExample7;
-import org.cloudbus.cloudsim.provisioners.PeProvisionerSimple;
-import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple;
-import org.cloudbus.cloudsim.resources.Bandwidth;
-import org.cloudbus.cloudsim.resources.Pe;
-import org.cloudbus.cloudsim.resources.PeSimple;
-import org.cloudbus.cloudsim.resources.Ram;
-import org.cloudbus.cloudsim.schedulers.VmSchedulerTimeShared;
 import org.cloudbus.cloudsim.util.CloudletsTableBuilderHelper;
 import org.cloudbus.cloudsim.util.TextTableBuilder;
-import org.cloudbus.cloudsim.utilizationmodels.UtilizationModel;
-import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelFull;
 
 /**
  * Classe Simulador de Nuvem
@@ -93,11 +78,11 @@ public class SimuladorDeNuvem {
         //v.CreateVMs(50);
         //v.add(512,250,1);
         //v.add(512,250,1);
-       // v.add(5000, 250,1);
-        v.add(d.getHost(4),512,250,1);
+        //v.add(5000, 250,1);
+        v.add(d.getHost(0),2*GB,500,1);
+        v.add(d.getHost(0),2*GB,100,1);
         
         vmList = v.getList();
-        Log.printFormattedLine("Host %s",vmList.get(0).getHost().getNomeHost());
         broker.submitVmList(vmList);
         //----------------------------------------------------------------------------
         
@@ -113,8 +98,9 @@ public class SimuladorDeNuvem {
         
               CL cl = new CL(brokerId);
 //            cl.CreateCoudLets(10);
-////          cl.add(4000, 1,300,10);
-              cl.add(0,4000, 1,300,10);//especifica para qual VM o cloudlet sera enviado
+//            cl.add(4000, 1,300,10);
+              cl.add(0,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
+              cl.add(1,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
               cloudletList = cl.getList();
               broker.submitCloudletList(cloudletList);
         // Cloudlet properties

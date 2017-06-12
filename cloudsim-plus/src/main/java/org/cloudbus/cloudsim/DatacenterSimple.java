@@ -450,13 +450,15 @@ public class DatacenterSimple extends SimEntity implements Datacenter {
      */
     protected boolean processVmCreate(SimEvent ev, boolean ack) {
         Vm vm = (Vm) ev.getData();
-
+        
+        
         boolean hostAllocatedForVm = getVmAllocationPolicy().allocateHostForVm(vm);
 
         if (ack) {
             int[] data = new int[3];
             data[0] = getId();
             data[1] = vm.getId();
+            
             data[2] = (hostAllocatedForVm ? CloudSimTags.TRUE : CloudSimTags.FALSE);
             send(vm.getUserId(), CloudSim.getMinTimeBetweenEvents(), 
                  CloudSimTags.VM_CREATE_ACK, data);

@@ -666,9 +666,7 @@ public class CloudSim {
      * and execute them.
      */
     private static void executeRunnableEntities() {
-        List<SimEntity> runableEntities = entities.stream()
-                .filter(ent -> ent.getState() == SimEntity.RUNNABLE)
-                .collect(Collectors.toList());
+        List<SimEntity> runableEntities = entities.stream().filter(ent -> ent.getState() == SimEntity.RUNNABLE).collect(Collectors.toList());
         
         //dont use stream because the entities are being changed
         for(SimEntity ent: runableEntities) {

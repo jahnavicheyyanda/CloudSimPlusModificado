@@ -109,6 +109,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
     @Override
     public void submitVmList(List<? extends Vm> list) {
         getVmsWaitingList().addAll(list);
+
     }
 
     @Override
@@ -208,6 +209,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
         int result = data[2];
         boolean vmCreatedAndLocated = false;
         vmCreationAcks++;
+        
 
         //if the VM was sucessfully created in the requested Datacenter
         if (result == CloudSimTags.TRUE) {
@@ -279,9 +281,9 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
             if(vm.getHost().getNomeHost()!=null)
             	IdOrName = vm.getHost().getNomeHost();
             else
-            	IdOrName = Integer.toString(vm.getHost().getId());
+            	IdOrName = "#"+Integer.toString(vm.getHost().getId());
             
-            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " Foi criada no Datacenter #", datacenterName, ", Host #", IdOrName);
+            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": VM #", vmId, " Foi criada no Datacenter ", datacenterName, ", Host ", IdOrName);
         
         } else {
             Log.printFormattedLine("The request to create Vm %d was not processed because the Vm was not found in the waiting list.", vmId);

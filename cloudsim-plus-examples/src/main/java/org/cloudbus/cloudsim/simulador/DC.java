@@ -56,7 +56,7 @@ public class DC extends NumRandom{
                 bw = 10000;
         this.name=name;
         hostId=0;
-        mips =1000;
+        mips =10000;
     }
     
     /*

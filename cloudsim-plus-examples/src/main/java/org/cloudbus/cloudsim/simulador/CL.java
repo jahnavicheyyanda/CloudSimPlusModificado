@@ -19,16 +19,12 @@ import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelFull;
 public class CL extends NumRandom{
     private List<Cloudlet> list;
     private  UtilizationModel utilizationModel;
-    private  long fileSize;
-    private  long outputSize;
     private int userId;
     private int indice;
     
     public CL(int userId){
         list = new LinkedList<>();
         utilizationModel = new UtilizationModelFull();
-        fileSize = 300;
-        outputSize = 300;
         this.userId= userId;
         indice =0 ;
     }

@@ -384,7 +384,7 @@ public abstract class SimEntity implements Cloneable, Nameable {
      * @return the simulation event
      */
     public SimEvent getNextEvent() {
-        return getNextEvent(CloudSim.SIM_ANY);
+         return getNextEvent(CloudSim.SIM_ANY);
     }
 
     /**
