@@ -679,7 +679,7 @@ public class CloudSim {
      * <b>not</b> be used directly.
      */
     public static void runStop() {
-        printMessage("Simulation completed.");
+    	printMessage("Simulação completa!");
     }
 
     /**
@@ -1072,6 +1072,7 @@ public class CloudSim {
         paused = false;
         pauseAt = -1;
         abruptTerminate = false;
+        printMessage("Simulação finalizada.");
     }
 
     /**

@@ -79,7 +79,7 @@ public class SimuladorDeNuvem {
         //v.add(512,250,1);
         //v.add(512,250,1);
         //v.add(5000, 250,1);
-        v.add(d.getHost(0),2*GB,500,1);
+        v.add(d.getHost(0),2*GB,500,2);
         v.add(d.getHost(0),2*GB,100,1);
         
         vmList = v.getList();
@@ -99,7 +99,7 @@ public class SimuladorDeNuvem {
               CL cl = new CL(brokerId);
 //            cl.CreateCoudLets(10);
 //            cl.add(4000, 1,300,10);
-              cl.add(0,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
+              cl.add(0,4000, 10,300,300);//especifica para qual VM o cloudlet sera enviado
               cl.add(1,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
               cloudletList = cl.getList();
               broker.submitCloudletList(cloudletList);
@@ -120,15 +120,15 @@ public class SimuladorDeNuvem {
 //        }catch(Exception e){}
 //      NW nw=new NW();
 //      nw.ActiveNetWorkTopology(datacenter, broker);
-       
+        CloudSim.runStop();
 
-     //  CloudSim.finishSimulation();
-     //  CloudSim.runStop();
-        Log.printFormattedLine("Simulação finalizada!");
+       
         
         List<Cloudlet> newList = broker.getCloudletsFinishedList();
         CloudletsTableBuilderHelper.print(new TextTableBuilder(), newList);
-
+       
+        CloudSim.finishSimulation();
+        
         
         
     }
