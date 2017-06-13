@@ -6,14 +6,20 @@
 package org.cloudbus.cloudsim.simulador;
 
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.cloudbus.cloudsim.Cloudlet;
 import org.cloudbus.cloudsim.Datacenter;
+import org.cloudbus.cloudsim.Host;
 import org.cloudbus.cloudsim.Log;
 import org.cloudbus.cloudsim.brokers.DatacenterBroker;
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.Vm;
+import org.cloudbus.cloudsim.VmSimple;
 import org.cloudbus.cloudsim.core.CloudSim;
+import org.cloudbus.cloudsim.examples.CloudSimExample7;
+import org.cloudbus.cloudsim.schedulers.CloudletSchedulerTimeShared;
 import org.cloudbus.cloudsim.util.CloudletsTableBuilderHelper;
 import org.cloudbus.cloudsim.util.TextTableBuilder;
 
@@ -26,8 +32,7 @@ public class SimuladorDeNuvem {
     private static List<Cloudlet> cloudletList; //Lista de Cloudlett
     private static List<Vm> vmList; //Lista de maquinas virtuais
   
-    
-    public static void main(String[] args) {
+     public static void main(String[] args) {
     	
         Log.printFormattedLine("Iniciando simulação!");
         //int Nuser = 1; // N° usuarios da nuvem
@@ -45,16 +50,16 @@ public class SimuladorDeNuvem {
         //dc1.CreateHosts(4);
         //CreateHost(nome, ram, storage);
         
-        dc.CreateHost("Murici", 3*GB, 500*GB);
-        dc.CreateHost("Cajueiro", 16*GB, 1*TB);
-        dc.CreateHost("Amendoeira", 8*GB, 1*TB);
-        dc.CreateHost("Angelim", 32*GB, 1*TB);
-        dc.CreateHost("Mangabeira", 16*GB, 1*TB);
-        dc.CreateHost("Pitombeira", 8*GB, 4*TB);
-        dc.CreateHost("Jequitiba", 48*GB, 1*TB);
-        dc.CreateHost("Sapucaia", 8*GB, 500*GB);
-        dc.CreateHost("Cedro", 8*GB, 1*TB);
-        Datacenter d=dc.CreateDatacenter();
+       Host Murici = dc.CreateHost("Murici", 3*GB, 500*GB);
+       Host Cajueiro = dc.CreateHost("Cajueiro", 16*GB, 1*TB);
+       Host Amendoeira = dc.CreateHost("Amendoeira", 8*GB, 1*TB);
+       Host Angelim = dc.CreateHost("Angelim", 32*GB, 1*TB);
+       Host Mangabeira = dc.CreateHost("Mangabeira", 16*GB, 1*TB);
+       Host Pitombeira = dc.CreateHost("Pitombeira", 8*GB, 4*TB);
+       Host Jequitiba = dc.CreateHost("Jequitiba", 48*GB, 1*TB);
+       Host Sapucaia = dc.CreateHost("Sapucaia", 8*GB, 500*GB);
+       Host Cedro = dc.CreateHost("Cedro", 8*GB, 1*TB);
+       dc.CreateDatacenter();
         //Datacenter d=dc.CreateDatacenter();
         
         //****************************************************************************
@@ -79,8 +84,8 @@ public class SimuladorDeNuvem {
         //v.add(512,250,1);
         //v.add(512,250,1);
         //v.add(5000, 250,1);
-        v.add(d.getHost(0),2*GB,500,2);
-        v.add(d.getHost(0),2*GB,100,1);
+        v.add(Murici,2*GB,500,2);
+        v.add(Murici,2*GB,100,1);
         
         vmList = v.getList();
         broker.submitVmList(vmList);
@@ -101,6 +106,7 @@ public class SimuladorDeNuvem {
 //            cl.add(4000, 1,300,10);
               cl.add(0,4000, 10,300,300);//especifica para qual VM o cloudlet sera enviado
               cl.add(1,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
+              
               cloudletList = cl.getList();
               broker.submitCloudletList(cloudletList);
         // Cloudlet properties
@@ -112,12 +118,14 @@ public class SimuladorDeNuvem {
         //----------------------------------------------------------------------------
         //broker.submitVmList(vmList);
        
+        
+        try{
+        ThreadMonitor monitor = new ThreadMonitor(v,cl);
+            monitor.start();
+            Thread.sleep(1000);
+        }catch(Exception e){}
         CloudSim.startSimulation();//Iniciando simulação
-//        try{
-//        ThreadMonitor monitor = new ThreadMonitor();
-//            monitor.start();
-//            Thread.sleep(1000);
-//        }catch(Exception e){}
+        
 //      NW nw=new NW();
 //      nw.ActiveNetWorkTopology(datacenter, broker);
         CloudSim.runStop();
@@ -135,39 +143,68 @@ public class SimuladorDeNuvem {
 }
 
 
-//class ThreadMonitor extends Thread {
-//    /**
-//     * The DatacenterBroker created inside the thread.
-//     */
-//    private DatacenterBroker broker = null;
-//
-//    @Override
-//    public void run() {
-//        CloudSim.pauseSimulation(10);
-//
-//        while (true) {
-//            if (CloudSim.isPaused()) {
-//                break;
-//            }
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        Log.printLine("\n\n\n" + CloudSim.clock() + ": The simulation is paused for 5 sec \n\n");
-//
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        CloudSim.resumeSimulation();
-//    }
-//
-//    public DatacenterBroker getBroker() {
-//        return broker;
-//    }
-//};
+class ThreadMonitor extends Thread {
+    /**
+     * The DatacenterBroker created inside the thread.
+     */
+	    private DatacenterBroker broker = null;
+	    private VM v; 
+	    private CL c;
+	    
+	    public ThreadMonitor(VM v,CL c) {
+			this.v = v;
+			this.c =c;
+			
+			
+		}
+
+    @Override
+    public void run() {
+        CloudSim.pauseSimulation(10);
+
+        while (true) {
+            if (CloudSim.isPaused()) {
+                break;
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        
+        
+        Log.printLine("\n\n\n" + CloudSim.clock() + ": A simulação está pausada por 5s \n\n");
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        
+       broker =  new DatacenterBrokerSimple("Broker02");
+
+        //Create VMs and Cloudlets and send them to broker
+        //creating 5 vms
+        v = new VM(broker.getId(),v.getIndice());
+        List<Vm> vmlist = new ArrayList<Vm>();
+        vmlist.add(v.add(1000, 1000, 1));
+
+        broker.submitVmList(vmlist);
+        
+        c = new CL(broker.getId(),c.getIndice());
+        c.add(4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
+        
+        List<Cloudlet> cloudletList = c.getList();
+        broker.submitCloudletList(cloudletList);
+
+        Log.printLine(CloudSim.clock() + ": Continuando simulação...");
+        CloudSim.resumeSimulation();
+    }
+
+    public DatacenterBroker getBroker() {
+        return broker;
+    }
+};

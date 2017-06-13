@@ -36,17 +36,32 @@ public class VM extends NumRandom{
        indice = 0;
     }
     
-    public void add(int ram,int mips,int pesNumber){
+    public VM(int userId,int indice){
+    	list = new LinkedList<>();
+        size = 10000; //image size (MB)
+        bw = 1000;// Largura de banda
+        vmm = "Xen"; //VMM name
+       this.userId =userId;
+       this.indice = indice;
+    }
+    
+    public int getIndice(){
+    	return indice;
+    }
+    
+    public Vm add(int ram,int mips,int pesNumber){
         Vm vm = new VmSimple(indice, userId, mips, pesNumber, ram, bw, size, vmm, new CloudletSchedulerTimeShared());
         list.add(vm);
         indice ++;
+        return vm;
     }
     
-    public void add(Host h,int ram,int mips,int pesNumber){
+    public Vm add(Host h,int ram,int mips,int pesNumber){
         Vm vm = new VmSimple(indice, userId, mips, pesNumber, ram, bw, size, vmm, new CloudletSchedulerTimeShared());
         vm.setHost(h);
         list.add(vm);
         indice ++;
+        return vm;
     }
 
     

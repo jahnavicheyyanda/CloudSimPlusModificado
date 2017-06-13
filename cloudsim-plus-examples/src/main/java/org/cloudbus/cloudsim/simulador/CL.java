@@ -28,6 +28,16 @@ public class CL extends NumRandom{
         this.userId= userId;
         indice =0 ;
     }
+    public CL(int userId,int indice){
+        list = new LinkedList<>();
+        utilizationModel = new UtilizationModelFull();
+        this.userId= userId;
+        this.indice =indice;
+    }
+    
+    public int getIndice(){
+    	return indice;
+    }
     
     public void add(long length,int pesNumber,int fileSize,int outputSize){
     Cloudlet cloudlet = new CloudletSimple(indice, length, pesNumber, fileSize, outputSize, utilizationModel, utilizationModel, utilizationModel);
