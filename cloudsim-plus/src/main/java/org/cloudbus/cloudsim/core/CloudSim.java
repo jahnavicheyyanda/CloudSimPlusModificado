@@ -1017,7 +1017,7 @@ public class CloudSim {
             }
 
             if (pauseAt != -1  && ((future.size() > 0 && clock <= pauseAt && pauseAt <= future.iterator().next().eventTime()) || future.size() == 0 && pauseAt <= clock)) {
-                printMessage("Simulação pausada");
+                printMessage(CloudSim.clock() +": Simulação pausada...");
                 pauseSimulation();
                 clock = pauseAt;
             }

@@ -119,5 +119,6 @@ public interface PowerHost extends HostDynamicWorkload {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		@Override public void setVmList(List<Vm> lvm){}
     };
 }

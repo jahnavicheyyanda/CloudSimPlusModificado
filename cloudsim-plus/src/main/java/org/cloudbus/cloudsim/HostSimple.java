@@ -60,7 +60,7 @@ public class HostSimple implements Host {
     /**
      * @see #getVmList()
      */
-    private final List<Vm> vmList = new ArrayList<>();
+    private List<Vm> vmList = new ArrayList<>();
 
     /**
      * @see #getPeList()
@@ -460,7 +460,12 @@ public class HostSimple implements Host {
     public <T extends Vm> List<T> getVmList() {
         return (List<T>) vmList;
     }
-
+    
+    @Override
+    public void setVmList(List<Vm> lvm) {
+    	vmList =lvm;
+    }
+    
     @Override
     public boolean isFailed() {
         return failed;

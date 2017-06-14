@@ -182,6 +182,7 @@ public interface Host extends Identificable {
      * @return the vm list
      */
     <T extends Vm> List<T> getVmList();
+    
 
     /**
      * Gets the policy for allocation of host PEs to VMs in order to schedule VM execution.
@@ -325,6 +326,7 @@ public interface Host extends Identificable {
     void setOnUpdateVmsProcessingListener(EventListener<HostUpdatesVmsProcessingEventInfo> onUpdateVmsProcessingListener);    
     
     String getNomeHost();
+    public void setVmList(List<Vm> lvm);
     /**
      * A property that implements the Null Object Design Pattern for {@link Host}
      * objects.
@@ -368,5 +370,7 @@ public interface Host extends Identificable {
         @Override public void setOnUpdateVmsProcessingListener(EventListener<HostUpdatesVmsProcessingEventInfo> onUpdateVmsProcessingListener) {}
         @Override public long getAvailableStorage() { return 0L; }
         @Override public String getNomeHost(){return null;}
+        @Override public void setVmList(List<Vm> lvm){}
     };
+	
 }
