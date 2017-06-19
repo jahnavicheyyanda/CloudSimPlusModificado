@@ -25,6 +25,8 @@ public class Simulador {
 	private static DC dc;
 	private static DatacenterSimple datacenter;
 	private static int IndiceVm, IndiceCl;
+	private static int GB = 1000;
+	private static int TB = 1000000;
 	
 	
 	public static void IniciarSimulacao(){
@@ -83,13 +85,12 @@ public class Simulador {
 		//datacenter = dc.CreateDatacenter();
 		broker = new DatacenterBrokerSimple("Broker");
 		
-		comando =999;
-		int n =10;
+		  int n =50;
 		  CL c = new CL(broker.getId(),IndiceCl);
 	      //c.add(2,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
-	      c.CreateCoudLets(n);
+	      c.getCarga(n);
 	      cloudletList = c.getList();
-	      
+	      Log.printLine(CloudSim.clock()+": "+cloudletList.size()+" CloudLets para ser processada.");
 	     // Comandos();
 	}
 	
@@ -139,8 +140,8 @@ public class Simulador {
 		
 		for(int i=0;i<num;i++){
 			Scanner entrada = new Scanner (System.in);
-			System.out.print("\n\nMemoria: ");
-			int memoria = entrada.nextInt();
+			System.out.print("\n\nMemoria(GB): ");
+			int memoria = entrada.nextInt()*GB;
 			entrada = new Scanner (System.in);
 			System.out.print("mips: ");
 			int mips = entrada.nextInt();
@@ -155,7 +156,7 @@ public class Simulador {
 			int idhost = entrada.nextInt();
 			Host h = hostlist.get(idhost);
 			Vm vm =v.add(h, memoria,mips, ps);
-			Log.printLine("Host selecionado "+h.getNomeHost()+"\n\n");
+			Log.printLine(CloudSim.clock()+": Host selecionado "+h.getNomeHost()+"\n\n");
 		}
 		vmList = v.getList();
 		//Comandos();
@@ -183,7 +184,8 @@ public class Simulador {
 		//CloudSim.setDatacenterIdsList(datacenter.getId());
 		//CloudSim.stopSimulation();
 	}
-		}
+			
+	}
 	
 	public static void CalcularElasticidade(){
 		
@@ -198,8 +200,7 @@ public class Simulador {
 	 * @param dc possui as configurações do Datacenter
 	 */
 	public static void Hosts(DC dc){
-		int GB = 1000;
-        int TB = 1000000;
+		
         hostlist.add(dc.CreateHost("Murici", 3*GB, 500*GB));
         hostlist.add(dc.CreateHost("Cajueiro", 16*GB, 1*TB));
         hostlist.add(dc.CreateHost("Amendoeira", 8*GB, 1*TB));
@@ -211,7 +212,7 @@ public class Simulador {
         hostlist.add(dc.CreateHost("Cedro", 8*GB, 1*TB));
 
         for(Host h:hostlist)
-        Log.printLine(": Host "+h.getNomeHost()+" iniciando...");
+        Log.printLine(CloudSim.clock()+": Host "+h.getNomeHost()+" iniciando...");
 	}
 	
 	
@@ -228,7 +229,7 @@ public class Simulador {
    
           //Criando dataCenter
           dc= new DC("ELAN");
-          Log.printLine(":Datacenter "+dc.getNome()+" Ativo");
+          Log.printLine(CloudSim.clock()+":Datacenter "+dc.getNome()+" Ativo");
           Hosts(dc);
           datacenter = dc.CreateDatacenter();
   		  //broker =  new DatacenterBrokerSimple("Broker");

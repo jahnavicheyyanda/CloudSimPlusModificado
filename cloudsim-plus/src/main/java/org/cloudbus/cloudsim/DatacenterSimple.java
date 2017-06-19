@@ -476,7 +476,6 @@ public class DatacenterSimple extends SimEntity implements Datacenter {
                     .getHost(vm).getVmScheduler()
                     .getAllocatedMipsForVm(vm));
         }
-        
         return hostAllocatedForVm;
     }
 

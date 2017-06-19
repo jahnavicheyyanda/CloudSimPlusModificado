@@ -249,6 +249,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
         } else {
             // no VMs created. abort
             Log.printFormattedLine("%.2f: %s: %s", CloudSim.clock(), getName(), "Nenhuma das VMs necessárias pode ser criada. Abortando");
+            destroyVms();
             finishExecution();
         }
     }

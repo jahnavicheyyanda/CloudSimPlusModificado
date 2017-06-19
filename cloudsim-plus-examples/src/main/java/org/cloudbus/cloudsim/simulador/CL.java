@@ -62,6 +62,10 @@ public class CL extends NumRandom{
             
         }
     
+     public void getCarga(int n){
+    	 CreateCoudLets(rdm(n)+1);
+     }
+     
     public  List<Cloudlet> getList(){
         return list;
     }
