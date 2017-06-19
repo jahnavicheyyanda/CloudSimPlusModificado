@@ -282,6 +282,26 @@ public class CloudSim {
                     + " Error - you haven't initialized CloudSim.");
         }
     }
+    
+    public static double startSimulation2() throws RuntimeException {
+        //Log.printConcatLine("Inicializando CloudSim versão ", CLOUDSIM_VERSION_STRING);
+        try {
+            double lastSimulationTime = run();
+
+            // reset all static variables
+            cisId = -1;
+            shutdownId = -1;
+//            cis = null;
+//            calendar = null;
+//            traceFlag = false;
+
+            return lastSimulationTime;
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            throw new RuntimeException("CloudSim.startCloudSimulation() :"
+                    + " Error - you haven't initialized CloudSim.");
+        }
+    }
 
     /**
      * Stops Cloud Simulation (based on {@link #runStop()}). This
@@ -387,8 +407,11 @@ public class CloudSim {
         if (cis == null) {
             return Collections.EMPTY_LIST;
         }
-
         return cis.getDatacenterIdsList();
+    }
+    
+    public static void setDatacenterIdsList(int n){
+    	cis.setDatacenterIdsList(n);
     }
 
     /**
@@ -937,7 +960,7 @@ public class CloudSim {
             ent.startEntity();
         }
 
-        printMessage("Entidades iniciadas.");
+        //printMessage("Entidades iniciadas.");
     }
 
     /**

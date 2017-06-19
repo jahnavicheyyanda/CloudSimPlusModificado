@@ -21,5 +21,7 @@ public class CargaDeTrabalho {
       broker.submitCloudletList(cloudletList);
 	}
 	
+	
+	
 		
 }

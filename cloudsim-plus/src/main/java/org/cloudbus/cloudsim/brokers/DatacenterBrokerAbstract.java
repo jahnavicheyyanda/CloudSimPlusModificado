@@ -185,8 +185,9 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
      */
     protected void processDatacenterCharacteristicsRequest(SimEvent ev) {
         setDatacenterIdsList(CloudSim.getDatacenterIdsList());
+        
         this.datacenterCharacteristicsMap = new HashMap<>();
-        Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Cloud Datacenter List received with ", getDatacenterIdsList().size(), " datacenter(s)");
+        //Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Cloud Datacenter List received with ", getDatacenterIdsList().size(), " datacenter(s)");
         
         for (Integer datacenterId : getDatacenterIdsList()) {
             sendNow(datacenterId, CloudSimTags.DATACENTER_CHARACTERISTICS, getId());
@@ -247,7 +248,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
             requestDatacentersToCreateWaitingCloudlets();
         } else {
             // no VMs created. abort
-            Log.printFormattedLine("%.2f: %s: %s", CloudSim.clock(), getName(), "none of the required VMs could be created. Aborting");
+            Log.printFormattedLine("%.2f: %s: %s", CloudSim.clock(), getName(), "Nenhuma das VMs necessárias pode ser criada. Abortando");
             finishExecution();
         }
     }
@@ -327,7 +328,7 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
         cloudletsCreated--;
         if (getCloudletsWaitingList().isEmpty() && cloudletsCreated == 0) {
             // all cloudlets executed
-            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Todos os Cloudlets executados. Encerrando...");
+            Log.printConcatLine(CloudSim.clock(), ": ", getName(), ": Todos os Cloudlets executados.");
             destroyVms();
             finishExecution();
         } else if (hasMoreCloudletsToBeExecuted()) {
@@ -461,12 +462,12 @@ public abstract class DatacenterBrokerAbstract extends SimEntity implements Data
 
     @Override
     public void shutdownEntity() {
-        Log.printConcatLine(getName(), " está desligando...");
+       // Log.printConcatLine(getName(), " está desligando...");
     }
 
     @Override
     public void startEntity() {
-        Log.printConcatLine(getName(), " está iniciando...");
+        //Log.printConcatLine(getName(), " está iniciando...");
         schedule(getId(), 0, CloudSimTags.DATACENTER_CHARACTERISTICS_REQUEST);
     }
 

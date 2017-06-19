@@ -59,6 +59,10 @@ public class DC extends NumRandom{
         mips =1000;
     }
     
+    public String getNome(){
+    	return name;
+    }
+    
     /*
      * Os Hosts Possuem informações sobre a quantidade de
      * processamento, armazenamento, largura de banda e quantidade de memória disponível.
@@ -124,8 +128,7 @@ public class DC extends NumRandom{
              * tem requisitos suficientes para alocar uma máquina virtual em específico.
              */
             datacenter = new DatacenterSimple(name, characteristics, new VmAllocationPolicySimple(hostList), storageList, 0);
-            
-        } catch (Exception e) {
+            } catch (Exception e) {
             e.printStackTrace();
         }
 

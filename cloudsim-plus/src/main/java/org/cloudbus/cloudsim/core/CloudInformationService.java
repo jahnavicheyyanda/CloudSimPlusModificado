@@ -40,7 +40,7 @@ public class CloudInformationService extends SimEntity {
      * A list containing only the id of entities with Advanced Reservation
      * feature that are registered at the CIS.
      */
-    private final List<Integer> datacenterIdsArList;
+    private List<Integer> datacenterIdsArList;
 
     /**
      * List of all regional CIS.
@@ -143,6 +143,11 @@ public class CloudInformationService extends SimEntity {
      */
     public List<Integer> getDatacenterIdsList() {
         return datacenterIdsList;
+    }
+    
+    public void setDatacenterIdsList(int n){
+    	datacenterIdsArList = new LinkedList<>();
+    	datacenterIdsArList.add(n);
     }
 
     /**
