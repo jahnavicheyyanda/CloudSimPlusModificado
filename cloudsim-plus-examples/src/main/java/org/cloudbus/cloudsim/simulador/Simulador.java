@@ -101,8 +101,6 @@ public class Simulador {
 		Log.printLine("Simulação encerrada!");
 		CalcularElasticidade();
 		MostrarResultados();
-
-		
 		}
 		return !stop;
 	}
@@ -140,13 +138,13 @@ public class Simulador {
 		
 		for(int i=0;i<num;i++){
 			Scanner entrada = new Scanner (System.in);
-			System.out.print("\n\nMemoria(GB): ");
+			Log.printLine("\n\nMemoria(GB): ");
 			int memoria = entrada.nextInt()*GB;
 			entrada = new Scanner (System.in);
-			System.out.print("mips: ");
+			Log.printLine("mips: ");
 			int mips = entrada.nextInt();
 			entrada = new Scanner (System.in);
-			System.out.print("Nº PS: ");
+			Log.printLine("Nº PS: ");
 			int ps = entrada.nextInt();
 			entrada = new Scanner (System.in);
 		for(Host h:hostlist){
