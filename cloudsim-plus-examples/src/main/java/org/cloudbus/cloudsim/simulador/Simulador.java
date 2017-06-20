@@ -90,7 +90,7 @@ public class Simulador {
 	      //c.add(2,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
 	      c.getCarga(n);
 	      cloudletList = c.getList();
-	      Log.printLine(CloudSim.clock()+": "+cloudletList.size()+" CloudLets para ser processada.");
+	      Log.printLine(CloudSim.clock()+": Carga de Trabalho com "+cloudletList.size()+" Cloudlets");
 	     // Comandos();
 	}
 	
