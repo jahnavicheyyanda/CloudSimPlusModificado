@@ -20,8 +20,6 @@ public class exemplo {
 		
 		DC dc= new DC("DC1");
 		
-		List<Host> hostlist = new ArrayList<Host>();
-		
 		Host h1 = dc.CreateHost("Host1", 3000, 500000);
 		Host h2 = dc.CreateHost("Host2", 16000, 1000000);
 		Host h3 = dc.CreateHost("Host3", 48000, 1000000);
