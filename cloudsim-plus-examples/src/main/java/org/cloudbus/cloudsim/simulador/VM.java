@@ -55,6 +55,13 @@ public class VM extends NumRandom{
         indice ++;
         return vm;
     }
+    public Vm add(int ram,int mips){
+    	int pesNumber =1;
+        Vm vm = new VmSimple(indice, userId, mips, pesNumber, ram, bw, size, vmm, new CloudletSchedulerTimeShared());
+        list.add(vm);
+        indice ++;
+        return vm;
+    }
     
     public Vm add(Host h,int ram,int mips,int pesNumber){
         Vm vm = new VmSimple(indice, userId, mips, pesNumber, ram, bw, size, vmm, new CloudletSchedulerTimeShared());
@@ -63,7 +70,14 @@ public class VM extends NumRandom{
         indice ++;
         return vm;
     }
-
+    public Vm add(Host h,int ram,int mips){
+    	int pesNumber =1;
+        Vm vm = new VmSimple(indice, userId, mips, pesNumber, ram, bw, size, vmm, new CloudletSchedulerTimeShared());
+        vm.setHost(h);
+        list.add(vm);
+        indice ++;
+        return vm;
+    }
     
      public void CreateVMs(int n){
             int mips[]={100,200,250,400,500,700,1000};//7
