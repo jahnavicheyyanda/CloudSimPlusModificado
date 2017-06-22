@@ -202,15 +202,9 @@ public class Simulador {
 	 */
 	public static void Hosts(DC dc){
 		
-        hostlist.add(dc.CreateHost("Murici", 3*GB, 500*GB));
-        hostlist.add(dc.CreateHost("Cajueiro", 16*GB, 1*TB));
-        hostlist.add(dc.CreateHost("Amendoeira", 8*GB, 1*TB));
         hostlist.add(dc.CreateHost("Angelim", 32*GB, 1*TB));
         hostlist.add(dc.CreateHost("Mangabeira", 16*GB, 1*TB));
-        hostlist.add(dc.CreateHost("Pitombeira", 8*GB, 4*TB));
         hostlist.add(dc.CreateHost("Jequitiba", 48*GB, 1*TB));
-        hostlist.add(dc.CreateHost("Sapucaia", 8*GB, 500*GB));
-        hostlist.add(dc.CreateHost("Cedro", 8*GB, 1*TB));
 
         for(Host h:hostlist)
         Log.printLine(CloudSim.clock()+": Host "+h.getNomeHost()+" iniciando...");
