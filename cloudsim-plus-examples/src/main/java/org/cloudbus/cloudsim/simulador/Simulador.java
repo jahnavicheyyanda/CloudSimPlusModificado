@@ -146,8 +146,8 @@ public class Simulador {
 			Log.printLine("\n\nMemoria(GB): ");
 			int memoria = entrada.nextInt()*GB;
 			entrada = new Scanner (System.in);
-			Log.printLine("mips: ");
-			int mips = entrada.nextInt();
+			Log.printLine("Armazenamento(MB): ");
+			long length = entrada.nextInt();
 			entrada = new Scanner (System.in);
 		for(Host h:hostlist){
 			Log.printLine(h.getId()+" - "+h.getNomeHost());
@@ -155,7 +155,7 @@ public class Simulador {
 			System.out.print("Digite o numero correspondente ao host: ");
 			int idhost = entrada.nextInt();
 			Host h = hostlist.get(idhost);
-			Vm vm =v.add(h, memoria,mips);
+			Vm vm =v.add(h, memoria,length);
 			Log.printLine(CloudSim.clock()+": Host selecionado "+h.getNomeHost()+"\n\n");
 		}
 		vmList = v.getList();
