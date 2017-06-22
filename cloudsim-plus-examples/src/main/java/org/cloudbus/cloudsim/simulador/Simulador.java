@@ -12,9 +12,12 @@ import org.cloudbus.cloudsim.Vm;
 import org.cloudbus.cloudsim.brokers.DatacenterBroker;
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.core.CloudSim;
+import org.cloudbus.cloudsim.util.CloudletsTableBuilderHelper;
+import org.cloudbus.cloudsim.util.TextTableBuilder;
 
 public class Simulador {
 	private static List<Cloudlet> cloudletList; //Lista de Cloudlett
+	private static List<Cloudlet> cloudletListaux; //Lista de Cloudlett
     private static List<Vm> vmList; //Lista de maquinas virtuais
     private static List<Host> hostlist;
     private static DatacenterBroker broker;
@@ -97,10 +100,12 @@ public class Simulador {
 	public static boolean FinalizarSimulacao(){
 		if(stop){
 		CloudSim.stopSimulation();
-		CloudSim.finishSimulation();
+		
 		Log.printLine("Simulação encerrada!");
-		CalcularElasticidade();
 		MostrarResultados();
+		CloudSim.finishSimulation();
+
+		CalcularElasticidade();
 		}
 		return !stop;
 	}
@@ -144,16 +149,13 @@ public class Simulador {
 			Log.printLine("mips: ");
 			int mips = entrada.nextInt();
 			entrada = new Scanner (System.in);
-			Log.printLine("Nº PS: ");
-			int ps = entrada.nextInt();
-			entrada = new Scanner (System.in);
 		for(Host h:hostlist){
 			Log.printLine(h.getId()+" - "+h.getNomeHost());
 		}
 			System.out.print("Digite o numero correspondente ao host: ");
 			int idhost = entrada.nextInt();
 			Host h = hostlist.get(idhost);
-			Vm vm =v.add(h, memoria,mips, ps);
+			Vm vm =v.add(h, memoria,mips);
 			Log.printLine(CloudSim.clock()+": Host selecionado "+h.getNomeHost()+"\n\n");
 		}
 		vmList = v.getList();
@@ -170,6 +172,7 @@ public class Simulador {
 		//for(Vm v:vmList)
 		//Log.printLine(CloudSim.clock()+": Destruindo VM #"+v.getId());
 		//	Log.printLine("\n\n"+broker.getCloudletsWaitingList()+"\n\n");	
+		cloudletListaux.addAll(broker.getCloudletsFinishedList());	
 		IndiceVm = vmList.get(vmList.size()-1).getId()+1;	
 		vmList.clear();
 		
@@ -190,7 +193,7 @@ public class Simulador {
 	}
 	
 	public static void MostrarResultados(){
-		
+		CloudletsTableBuilderHelper.print(new TextTableBuilder(), cloudletListaux);
 	}
 	
 	/**
@@ -223,6 +226,7 @@ public class Simulador {
         hostlist = new ArrayList<Host>();
         vmList = new ArrayList<Vm>();
         cloudletList = new ArrayList<Cloudlet>();
+        cloudletListaux = new ArrayList<Cloudlet>();
         CloudSim.init();
    
           //Criando dataCenter
