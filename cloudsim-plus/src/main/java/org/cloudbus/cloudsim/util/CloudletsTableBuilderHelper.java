@@ -53,8 +53,8 @@ public class CloudletsTableBuilderHelper {
     protected void createTableColumns() {
         printer.addColumn("Cloudlet").setSubTitle("ID");
         printer.addColumn("Status ");
-        printer.addColumn(" DC ").setSubTitle("Name");
-        printer.addColumn("VM").setSubTitle("ID");
+        printer.addColumn("   DC   ").setSubTitle("  Name  ");
+        printer.addColumn(" VM ").setSubTitle(" ID ");
         printer.addColumn("CloudletLen").setSubTitle("MI");
         printer.addColumn("CloudletPEs").setSubTitle("CPU cores");
         printer.addColumn("StartTime").setFormat("%d").setSubTitle("Seconds");

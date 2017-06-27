@@ -57,7 +57,7 @@ public class Simulador {
 					    System.out.print("Quantidade de VMs: ");
 						CriarVm(entrada.nextInt());}
 					else if(comando==2)//Criar vms automatica
-						CriarVmAuto();
+						CriarVmAuto2();
 					
 					ProcessarCloudlets();
 					DestruirVMs();
@@ -88,7 +88,7 @@ public class Simulador {
 		//datacenter = dc.CreateDatacenter();
 		broker = new DatacenterBrokerSimple("Broker");
 		
-		  int n =50;
+		  int n =300;
 		  CL c = new CL(broker.getId(),IndiceCl);
 	      //c.add(2,4000, 3,300,300);//especifica para qual VM o cloudlet sera enviado
 	      c.getCarga(n);
@@ -162,10 +162,69 @@ public class Simulador {
 		//Comandos();
 	}
 	
+/*
+ * Criando vms automaricamente tecnica de replicação de vms / memoria 1GB e Disco 50GB total de Vms 56Vms
+ */
 	public static void CriarVmAuto(){
 		comando =0;
-		//Comandos();
+		v= new VM(broker.getId(),IndiceVm);
+		
+		int alternar = 0;
+		
+		for(int i=0;i<cloudletList.size() ;i++){
+			
+			Host h = hostlist.get(alternar);
+			v.add(h, 1*GB,50*GB);
+			
+			alternar++;
+			if(alternar==3)
+				alternar =0;
+			
+			if(i>47 && alternar ==1)
+					alternar =2;
+			
+			if(i==55)
+				break;
+			 
+		}
+		vmList = v.getList();
 	}
+	
+	//---------------------------------------------------------------------------------------------------------
+	/*
+	 * Criando vms automaricamente tecnica de replicação de vms / memoria 1GB e Disco 50GB total de Vms 56Vms
+	 */
+		public static void CriarVmAuto2(){
+			comando =0;
+			v= new VM(broker.getId(),IndiceVm);
+			
+			int alternar = 0;
+			
+			for(int i=0;i<cloudletList.size() ;i++){
+				
+				Host h = hostlist.get(alternar);
+				v.add(h, 1*GB,20*GB);
+				
+				
+				if(i<80){
+				alternar++;
+				if(alternar==3)
+					alternar = 0;
+				}else
+					alternar = 2;
+				
+				if(i>47 && alternar ==1)
+						alternar =2;
+				
+				
+				
+				if(i==95)
+					break;
+				 
+			}
+			vmList = v.getList();
+		}
+	//---------------------------------------------------------------------------------------------------------
 	
 	public static void DestruirVMs(){
 		if(vmList.size()!=0){

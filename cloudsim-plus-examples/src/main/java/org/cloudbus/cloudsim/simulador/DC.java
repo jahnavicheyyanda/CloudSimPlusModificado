@@ -53,10 +53,10 @@ public class DC extends NumRandom{
     public DC(String name){
         hostList = new ArrayList<>();
         peList = new ArrayList<>();
-                bw = 10000;
+                bw = 1000000;
         this.name=name;
         hostId=0;
-        mips =1000;
+        mips =1000000;
     }
     
     public String getNome(){

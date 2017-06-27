@@ -63,11 +63,11 @@ public class CL extends NumRandom{
         }
     
      public void CreateCoudLets(int n){
-            long length[]={100,300,500,1000,1500,2000};
+            long length[]={100,300,500,1000,1500,2000,5000,10000,20000,10000000};
             int pesNumber[]={1,2};
-            int fileSizeOutputSize[]={100,200,300,500,1000};
+            int fileSizeOutputSize[]={100,200,300,500,1000,2000,5000,10000,20000,50000};
             for(int i=0;i<n;i++)
-            add(length[rdm(6)],pesNumber[rdm(2)],fileSizeOutputSize[rdm(5)],fileSizeOutputSize[rdm(5)]);
+            add(length[rdm(10)],pesNumber[rdm(2)],fileSizeOutputSize[rdm(10)],fileSizeOutputSize[rdm(10)]);
             
         }
     
