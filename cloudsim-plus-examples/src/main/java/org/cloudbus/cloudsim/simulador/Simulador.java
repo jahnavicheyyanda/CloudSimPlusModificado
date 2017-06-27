@@ -163,7 +163,7 @@ public class Simulador {
 	}
 	
 /*
- * Criando vms automaricamente tecnica de replicação de vms / memoria 1GB e Disco 50GB total de Vms 56Vms
+ * Criando vms automaticamente tecnica de replicação de vms / memoria 1GB e Disco 50GB total de Vms 56Vms
  */
 	public static void CriarVmAuto(){
 		comando =0;
@@ -192,7 +192,7 @@ public class Simulador {
 	
 	//---------------------------------------------------------------------------------------------------------
 	/*
-	 * Criando vms automaricamente tecnica de replicação de vms / memoria 1GB e Disco 50GB total de Vms 56Vms
+	 * Criando vms automaticamente tecnica de replicação de vms / memoria 1GB e Disco 20GB total de Vms 96Vms
 	 */
 		public static void CriarVmAuto2(){
 			comando =0;
