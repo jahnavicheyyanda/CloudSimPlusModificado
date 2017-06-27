@@ -204,17 +204,18 @@ public class Simulador {
 				
 				Host h = hostlist.get(alternar);
 				v.add(h, 1*GB,20*GB);
+								
 				
-				
-				if(i<80){
 				alternar++;
 				if(alternar==3)
 					alternar = 0;
-				}else
-					alternar = 2;
+				
 				
 				if(i>47 && alternar ==1)
 						alternar =2;
+				
+				if(i>=79)
+					alternar =2;
 				
 				
 				
